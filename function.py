@@ -1,9 +1,8 @@
-import os
 
 def nom_pres(titre):
     titre = titre[:len(titre)-4]
     titre = titre[11:]
-    if ord(titre[len(nom_pres)-1]) <= 57:
+    if ord(titre[len(titre)-1]) <= 57:
         titre = titre[:-1]
     return titre
 
