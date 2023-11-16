@@ -1,1 +1,1 @@
-print("on va en chier")
+print("prière")
