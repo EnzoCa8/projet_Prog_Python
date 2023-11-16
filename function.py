@@ -10,7 +10,7 @@ def list_of_files(directory, extension):
 def recup_nom_president(files_names):
 
     '''On supprime le .txt du nom du fichier'''
-    nom_sans_extension = os.path.splitext(nom_fichier)[0]
+    nom_sans_extension = os.path.splitext(files_names)[0]
 
     '''Diviser le nom du fichier en parties en utilisant '_' comme séparateur'''
     parties_nom = nom_sans_extension.split('_')
