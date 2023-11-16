@@ -27,3 +27,4 @@ for element in L:
         liste_sans_doublons.append(element)
 
 print(liste_sans_doublons)
+
