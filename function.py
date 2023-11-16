@@ -1,5 +1,6 @@
 
 def nom_pres(titre):
+    L = []
     titre = titre[:len(titre)-4]
     titre = titre[11:]
     if ord(titre[len(titre)-1]) <= 57:
