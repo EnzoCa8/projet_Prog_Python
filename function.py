@@ -21,3 +21,18 @@ def prenom_pres(nom):
         prenom = "François"
     if nom == "Sarkozy":
         prenom = "Nicolas"
+    return prenom
+
+def convertir_en_minuscules(nom_fichier_entree, nom_fichier_sortie):
+    with open(nom_fichier_entree, 'r', encoding='utf-8' ) as fichier_entree:
+        contenu = fichier_entree.read()
+
+    contenu_minuscule = contenu.lower()
+
+    with open(nom_fichier_sortie, 'w', encoding='utf-8') as fichier_sortie:
+        fichier_sortie.write(contenu_minuscule)
+
+
+
+
+
