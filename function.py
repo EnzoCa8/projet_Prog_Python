@@ -8,6 +8,15 @@ def list_of_files(directory, extension):
             files_names.append(filename)
     return files_names
 
+import os
+def list_of_files(directory, extension):
+    files_names = []
+    for filename in os.listdir(directory):
+        if filename.endswith(extension):
+            files_names.append(filename)
+    return files_names
+
+
 def nom_pres(titre):
     L = []
     titre = titre[:len(titre)-4]
@@ -34,14 +43,37 @@ def prenom_pres(nom):
 
 # mettre en minuscule les textes
 
-def convertir_en_minuscules(nom_fichier_entree, nom_fichier_sortie):
-    with open(nom_fichier_entree, 'r', encoding='utf-8' ) as fichier_entree:
-        contenu = fichier_entree.read()
+def convertir_en_minuscules(input_dir, output_dir):
+    # Assurez-vous que le répertoire de sortie existe
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
 
-    contenu_minuscule = contenu.lower()
+    file_names = ["Nomination_Chirac1.txt", "Nomination_Chirac2.txt", "Nomination_Giscard dEstaing.txt",
+     "Nomination_Hollande.txt", "Nomination_Macron.txt", "Nomination_Mitterrand1.txt", "Nomination_Mitterrand2.txt", "Nomination_Sarkozy.txt"]
 
-    with open(nom_fichier_sortie, 'w', encoding='utf-8') as fichier_sortie:
-        fichier_sortie.write(contenu_minuscule)
+
+    for file_name in file_names:
+        input_path = os.path.join(input_dir, file_name)
+        output_path = os.path.join(output_dir, file_name)
+
+        if os.path.isfile(input_path):
+            with open(input_path, 'r', encoding='utf-8') as input_file:
+                # Lire le contenu du fichier et le convertir en minuscules
+                content = input_file.read().lower()
+
+                # Écrire le contenu dans le fichier de sortie
+                with open(output_path, 'w', encoding='utf-8') as output_file:
+                    output_file.write(content)
+
+if __name__ == "__main__":
+    # Spécifiez les répertoires d'entrée et de sortie
+    input_directory = "speeches"
+    output_directory = "cleaned"
+
+    # Appeler la fonction pour nettoyer et copier les fichiers
+    convertir_en_minuscules(input_directory, output_directory)
+
+    print("Le nettoyage des fichiers est terminé.")
 
 
 def sup_pontuation(nom_fichier):
