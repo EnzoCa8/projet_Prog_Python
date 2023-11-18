@@ -1,4 +1,3 @@
-
 def nom_pres(titre):
     L = []
     titre = titre[:len(titre)-4]
