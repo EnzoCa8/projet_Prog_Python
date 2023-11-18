@@ -1,3 +1,13 @@
+import os
+import cleaned
+def list_of_files(directory, extension):
+
+ files_names = []
+    for filename in os.listdir(directory):
+        if filename.endswith(extension):
+            files_names.append(filename)
+    return files_names
+
 def nom_pres(titre):
     L = []
     titre = titre[:len(titre)-4]
@@ -34,6 +44,11 @@ def convertir_en_minuscules(nom_fichier_entree, nom_fichier_sortie):
         fichier_sortie.write(contenu_minuscule)
 
 
+def sup_pontuation(nom_fichier):
 
+    indesirable = [".", ";", ":",]
+    directory = "./cleaned"
+    files_names = list_of_files(directory, "txt")
 
+    for files_names in directory :
 
