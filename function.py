@@ -23,6 +23,8 @@ def prenom_pres(nom):
         prenom = "Nicolas"
     return prenom
 
+# mettre en minuscule les textes
+
 def convertir_en_minuscules(nom_fichier_entree, nom_fichier_sortie):
     with open(nom_fichier_entree, 'r', encoding='utf-8' ) as fichier_entree:
         contenu = fichier_entree.read()
