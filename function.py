@@ -1,8 +1,8 @@
 import os
-import cleaned
+import string
 def list_of_files(directory, extension):
 
- files_names = []
+    files_names = []
     for filename in os.listdir(directory):
         if filename.endswith(extension):
             files_names.append(filename)
@@ -46,9 +46,20 @@ def convertir_en_minuscules(nom_fichier_entree, nom_fichier_sortie):
 
 def sup_pontuation(nom_fichier):
 
-    indesirable = [".", ";", ":",]
-    directory = "./cleaned"
-    files_names = list_of_files(directory, "txt")
+    with open(nom_fichier, 'r', encoding='utf-8') as fichier:
+        texte = fichier.read()
 
-    for files_names in directory :
+    texte_sans_ponctuation = ''.join(caractere if caractere not in string.punctuation else ' ' for caractere in texte)
+
+    texte_final = ' '.join(mot.replace('-', ' ').replace('\'', ' ') if '-' in mot or '\'' in mot else mot for mot in texte_sans_ponctuation.split())
+
+    with open(nom_fichier, 'w', encoding='utf-8') as fichier:
+        fichier.write(texte_final)
+
+directory = './cleaned'
+
+# Parcourir tous les fichiers dans le répertoire "cleaned"
+for nom_fichier in os.listdir(directory):
+    nom_fichier = sup_pontuation(nom_fichier)
+
 
