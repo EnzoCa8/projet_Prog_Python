@@ -73,7 +73,7 @@ if __name__ == "__main__":
     # Appeler la fonction pour nettoyer et copier les fichiers
     convertir_en_minuscules(input_directory, output_directory)
 
-    print("Le nettoyage des fichiers est terminé.")
+
 
 
 def sup_pontuation(nom_fichier):
