@@ -52,10 +52,15 @@ def convertir_en_minuscules(input_dir, output_dir):
      "Nomination_Hollande.txt", "Nomination_Macron.txt", "Nomination_Mitterrand1.txt", "Nomination_Mitterrand2.txt", "Nomination_Sarkozy.txt"]
 
 
-    for file_name in file_names:
-        input_path = os.path.join(input_dir, file_name)
-        output_path = os.path.join(output_dir, file_name)
+    file_names_cleaned = ["Nomination_Chirac1_cleaned.txt", "Nomination_Chirac2_cleaned.txt", "Nomination_Giscard dEstaing_cleaned.txt",
+     "Nomination_Hollande_cleaned.txt", "Nomination_Macron_cleaned.txt", "Nomination_Mitterrand1_cleaned.txt", "Nomination_Mitterrand2_cleaned.txt", "Nomination_Sarkozy_cleaned.txt"]
 
+    # Parcourez chaque fichier d'entrée et de sortie
+    for input_name, output_name in zip(file_names, file_names_cleaned):
+        input_path = os.path.join(input_dir, input_name)
+        output_path = os.path.join(output_dir, output_name)
+
+        # Vérifiez si le fichier d'entrée existe
         if os.path.isfile(input_path):
             with open(input_path, 'r', encoding='utf-8') as input_file:
                 # Lire le contenu du fichier et le convertir en minuscules
