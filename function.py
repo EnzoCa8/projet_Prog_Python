@@ -43,17 +43,10 @@ def prenom_pres(nom):
 
 # mettre en minuscule les textes
 
-def convertir_en_minuscules(input_dir, output_dir):
+def convertir_en_minuscules(input_dir, output_dir, file_names, file_names_cleaned):
     # Assurez-vous que le répertoire de sortie existe
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
-
-    file_names = ["Nomination_Chirac1.txt", "Nomination_Chirac2.txt", "Nomination_Giscard dEstaing.txt",
-     "Nomination_Hollande.txt", "Nomination_Macron.txt", "Nomination_Mitterrand1.txt", "Nomination_Mitterrand2.txt", "Nomination_Sarkozy.txt"]
-
-
-    file_names_cleaned = ["Nomination_Chirac1_cleaned.txt", "Nomination_Chirac2_cleaned.txt", "Nomination_Giscard dEstaing_cleaned.txt",
-     "Nomination_Hollande_cleaned.txt", "Nomination_Macron_cleaned.txt", "Nomination_Mitterrand1_cleaned.txt", "Nomination_Mitterrand2_cleaned.txt", "Nomination_Sarkozy_cleaned.txt"]
 
     # Parcourez chaque fichier d'entrée et de sortie
     for input_name, output_name in zip(file_names, file_names_cleaned):
