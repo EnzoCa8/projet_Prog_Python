@@ -1,12 +1,6 @@
-import os
-import string
-def list_of_files(directory, extension):
 
-    files_names = []
-    for filename in os.listdir(directory):
-        if filename.endswith(extension):
-            files_names.append(filename)
-    return files_names
+import string
+
 
 import os
 def list_of_files(directory, extension):
@@ -63,13 +57,6 @@ def convertir_en_minuscules(input_dir, output_dir, file_names, file_names_cleane
                 with open(output_path, 'w', encoding='utf-8') as output_file:
                     output_file.write(content)
 
-if __name__ == "__main__":
-    # Spécifiez les répertoires d'entrée et de sortie
-    input_directory = "speeches"
-    output_directory = "cleaned"
-
-    # Appeler la fonction pour nettoyer et copier les fichiers
-    convertir_en_minuscules(input_directory, output_directory)
 
 
 
@@ -91,5 +78,56 @@ directory = './cleaned'
 # Parcourir tous les fichiers dans le répertoire "cleaned"
 for nom_fichier in os.listdir(directory):
     nom_fichier = sup_pontuation(nom_fichier)
+
+
+
+## Début Matrice TF-IDF ##
+
+    # TF
+def dictionnaire(input_name, input_dir, file_names_cleaned, occurrence=None):
+
+    # Parcourez chaque fichier
+    for input_name in file_names_cleaned:
+        input_path = os.path.join(input_dir)
+
+        # Vérifiez si le fichier d'entrée existe
+        if os.path.isfile(input_path):
+            with open(input_path, 'r', encoding='utf-8') as dictionary:
+                content = dictionary.read()
+
+                mots = dictionary.split
+                occurrence = {}
+                for ligne in dictionary:
+                    for mot in mots:
+                        if mot in occurrence:
+                            occurrence[mot] += 1
+                        else :
+                            occurrence[mot] = 1
+
+                    occurrence_triees = dict(sorted(occurrence.items(), key=lambda x: x[1], reverse=True))
+
+            for mot,occ in occurrence_triees.items():
+                return f"Mot : {mot}, Occurrences : {occ}"
+
+
+if __name__== '__main__':
+    input_dir = "cleaned"
+
+    dictionnaire(input_dir)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
