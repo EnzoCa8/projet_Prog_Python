@@ -59,9 +59,9 @@ def convertir_en_minuscules(input_dir, output_dir, file_names, file_names_cleane
 
 
 
+# enlever ponctuation
 
-
-def sup_pontuation(nom_fichier):
+'''def sup_pontuation(nom_fichier):
 
     with open(nom_fichier, 'r', encoding='utf-8') as fichier:
         texte = fichier.read()
@@ -77,7 +77,7 @@ directory = './cleaned'
 
 # Parcourir tous les fichiers dans le répertoire "cleaned"
 for nom_fichier in os.listdir(directory):
-    nom_fichier = sup_pontuation(nom_fichier)
+    nom_fichier = sup_pontuation(nom_fichier)'''
 
 
 
@@ -113,7 +113,7 @@ def dictionnaire(input_name, input_dir, file_names_cleaned, occurrence=None):
 if __name__== '__main__':
     input_dir = "cleaned"
 
-    dictionnaire(input_dir)
+    dictionnaire(input_dir,file_names_cleaned=None)
 
 
 
