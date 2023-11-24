@@ -53,7 +53,7 @@ def convertir_en_minuscules(input_dir, output_dir, file_names, file_names_cleane
                 # Lire le contenu du fichier et le convertir en minuscules
                 content = input_file.read().lower()
 
-                # Écrire le contenu dans le fichier de sortie
+                # Écrire le contenu dans le fichier de sortie b
                 with open(output_path, 'w', encoding='utf-8') as output_file:
                     output_file.write(content)
 
