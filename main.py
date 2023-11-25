@@ -94,3 +94,6 @@ print("Scores TF-IDF correspondants :", scores_max_tfidf)
 
 #Appeler la fonction indiquant le mot le plus répété par Chirac dans ses discours
 mots_plus_repetes_par_chirac(repertoire_corpus, file_names_cleaned)
+
+# Utilisation de la fonction qui indique quel président a le plus parlé de la nation
+president_avec_plus_parle_de_nation(repertoire_corpus, file_names_cleaned)

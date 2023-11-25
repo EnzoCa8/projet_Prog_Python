@@ -250,9 +250,6 @@ def mots_plus_importants_tfidf(matrice_tfidf, mots_uniques):
                     mots_importants_tfidf.append(mot_max_tfidf)
                     scores_max_tfidf.append(max_tfidf)
 
-                    # Ajouter des impressions supplémentaires pour visualiser les valeurs de TF-IDF
-                    print(f"Mot important : {mot_max_tfidf}")
-                    print(f"Score TF-IDF correspondant : {max_tfidf}")
         except IndexError:
             print(f"Erreur d'indice pour l'indice {i}. Matrice TD-IDF : {len(matrice_tfidf)} x {len(matrice_tfidf[0])}")
             continue  # Continuer la boucle après avoir traité l'erreur
@@ -264,6 +261,7 @@ def mots_plus_importants_tfidf(matrice_tfidf, mots_uniques):
     return mots_importants_tfidf, scores_max_tfidf
 
 
+#Fonction indiquant quel mot chirac répète le plus dans ses discours
 def mots_plus_repetes_par_chirac(repertoire_corpus, file_names_cleaned):
     # Calculer le dictionnaire TF
     tf_dict = dico_TF(repertoire_corpus, file_names_cleaned)
@@ -291,5 +289,52 @@ def mots_plus_repetes_par_chirac(repertoire_corpus, file_names_cleaned):
     # Afficher les résultats
     for fichier, mots_plus_repetes in mots_plus_repetes_par_fichier:
         print(f"Le(s) mot(s) le(s) plus répété(s) par le président Chirac dans le fichier {fichier} : {mots_plus_repetes}")
+
+
+
+
+#fonction indiquant quel président a le plus parlé de la nation
+
+from collections import Counter
+import re
+
+def president_avec_plus_parle_de_nation(repertoire_corpus, file_names_cleaned):
+    # Calculer le dictionnaire TF
+    tf_dict = dico_TF(repertoire_corpus, file_names_cleaned)
+
+    # Liste des présidents et de leurs fichiers correspondants
+    presidents = {
+        "Chirac": ["Nomination_Chirac1_cleaned.txt", "Nomination_Chirac2_cleaned.txt"],
+        "Giscard d'Estaing": ["Nomination_Giscard dEstaing_cleaned.txt"],
+        "Hollande": ["Nomination_Hollande_cleaned.txt"],
+        "Macron": ["Nomination_Macron_cleaned.txt"],
+        "Mitterrand": ["Nomination_Mitterrand1_cleaned.txt", "Nomination_Mitterrand2_cleaned.txt"],
+        "Sarkozy": ["Nomination_Sarkozy_cleaned.txt"]
+    }
+
+    # Dictionnaire pour stocker le nombre d'occurrences du mot "nation" par président
+    occurrences_par_president = {}
+
+    # Parcourir les présidents et leurs fichiers
+    for president, fichiers in presidents.items():
+        total_occurrences = 0
+        for fichier in fichiers:
+            # Vérifier si le fichier est présent dans le corpus
+            if fichier in tf_dict:
+                # Ajouter le nombre d'occurrences du mot "nation" dans le fichier
+                total_occurrences += tf_dict[fichier].get("nation", 0)
+
+        # Stocker le total des occurrences pour le président
+        occurrences_par_president[president] = total_occurrences
+
+    # Trouver le président avec le plus d'occurrences du mot "nation"
+    president_max_occurrences = max(occurrences_par_president, key=occurrences_par_president.get)
+    nb_occurrences_max = occurrences_par_president[president_max_occurrences]
+
+    # Afficher le résultat
+    print(f"Le président qui a le plus parlé de la nation est {president_max_occurrences} avec {nb_occurrences_max} occurrences.")
+
+
+
 
 
