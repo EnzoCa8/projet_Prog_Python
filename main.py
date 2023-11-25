@@ -45,15 +45,16 @@ if __name__ == "__main__":
 
 # TF
 
-#liste des fichiers cleaned à copier coller au besoin entre ' ' dans files_to_process_input :
-#Nomination_Chirac1_cleaned.txt, Nomination_Chirac2_cleaned.txt, Nomination_Giscard dEstaing_cleaned.txt, Nomination_Hollande_cleaned.txt, Nomination_Macron_cleaned.txt, Nomination_Mitterrand1_cleaned.txt, Nomination_Mitterrand2_cleaned.txt, Nomination_Sarkozy_cleaned.txt
+#liste des fichiers cleaned à copier coller au besoin entre dans files_to_process_input :
+#Nomination_Chirac1_cleaned.txt Nomination_Chirac2_cleaned.txt Nomination_Giscard dEstaing_cleaned.txt Nomination_Hollande_cleaned.txt Nomination_Macron_cleaned.txt Nomination_Mitterrand1_cleaned.txt Nomination_Mitterrand2_cleaned.txt Nomination_Sarkozy_cleaned.txt
 
 
-input_directory = 'cleaned'
+repertoire_corpus = 'cleaned'
 files_to_process_input = input("Entrez la liste des fichiers à traiter séparés par des espaces: ")
 files_to_process = files_to_process_input.split()
-resultat = dictionnaire(input_directory, files_to_process)
-print(resultat)
+
+resultat_dico_tf = dico_TF(repertoire_corpus, files_to_process)
+print(resultat_dico_tf)
 
 #IDF
 
@@ -61,4 +62,17 @@ repertoire_corpus = 'cleaned'
 idf_resultats = calculer_idf(repertoire_corpus)
 print(idf_resultats)
 
+#matrice TF IDF
 
+
+repertoire_corpus = 'cleaned'
+files_to_process_input = input("Entrez la liste des fichiers à traiter séparés par des espaces: ")
+files_to_process = files_to_process_input.split()
+
+matrice_tfidf_resultat, mots_uniques = calculer_tf_idf_matrix(repertoire_corpus, files_to_process)
+print("Mots uniques:", mots_uniques)
+print("Matrice TF-IDF:")
+for ligne in matrice_tfidf_resultat:
+    print(ligne)
+
+#fonctionnalités matrice TFIDF

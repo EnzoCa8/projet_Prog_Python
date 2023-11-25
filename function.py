@@ -1,7 +1,7 @@
 import string
 import os
 import math
-
+from collections import Counter
 def list_of_files(directory, extension):
     files_names = []
     for filename in os.listdir(directory):
@@ -92,7 +92,8 @@ def parcourir_repertoire():
 ## Début Matrice TF-IDF ##
 
     # TF
-def dictionnaire(input_dir, file_names_cleaned):
+
+def dico_TF(input_dir, file_names_cleaned):
     # Initialiser le dictionnaire des occurrences en dehors de la boucle
     occurrence = {}
 
@@ -111,13 +112,11 @@ def dictionnaire(input_dir, file_names_cleaned):
                 # Parcourir chaque mot et mettre à jour le dictionnaire des occurrences
                 for mot in mots:
                     # Mettre à jour le dictionnaire des occurrences
-                    occurrence[mot] = occurrence.get(mot, 0) + 1
+                    if input_name not in occurrence:
+                        occurrence[input_name] = {}
+                    occurrence[input_name][mot] = occurrence[input_name].get(mot, 0) + 1
 
-    # Trier le dictionnaire des occurrences par nombre d'occurrences décroissant
-    occurrence_triees = dict(sorted(occurrence.items(), key=lambda x: x[1], reverse=True))
-
-    # Retourner le dictionnaire trié
-    return occurrence_triees
+    return occurrence
 
 
 #IDF
@@ -159,15 +158,42 @@ def calculer_idf(repertoire_corpus):
     return idf_scores
 
 
-#TF-IDF
+#matrice TF-IDF
 
+def calculer_tf_idf_matrix(repertoire_corpus, file_names_cleaned):
+    # Calculer le dictionnaire TF
+    tf_dict = dico_TF(repertoire_corpus, file_names_cleaned)
 
+    # Calculer le dictionnaire IDF
+    idf_dict = calculer_idf(repertoire_corpus)
 
+    # Initialiser la liste des mots uniques
+    mots_uniques = list(set(tf_dict.keys()).union(idf_dict.keys()))
 
+    # Initialiser la matrice TF-IDF avec des zéros
+    matrice_tfidf = [[0.0] * len(file_names_cleaned) for _ in range(len(mots_uniques))]
 
+    # Remplir la matrice TF-IDF en multipliant les valeurs correspondantes de TF et IDF
+    for i, mot in enumerate(mots_uniques):
+        for j, file_name in enumerate(file_names_cleaned):
+            tf_value = tf_dict.get(file_name, {}).get(mot, 0)  # Correction ici
+            idf_value = idf_dict.get(mot, 0)
+            matrice_tfidf[i][j] = tf_value * idf_value
 
+    # Calculer la transposée de la matrice sans utiliser de fonction prédéfinie
+    matrice_tfidf_transposee = transposee_matrice(matrice_tfidf)
 
+    return matrice_tfidf_transposee, mots_uniques
+def transposee_matrice(matrice):
+    # Fonction pour calculer la transposée d'une matrice sans utiliser de fonction prédéfinie
+    nb_lignes, nb_colonnes = len(matrice), len(matrice[0])
+    matrice_transposee = [[0] * nb_lignes for _ in range(nb_colonnes)]
 
+    for i in range(nb_lignes):
+        for j in range(nb_colonnes):
+            matrice_transposee[j][i] = matrice[i][j]
+
+    return matrice_transposee
 
 
 
