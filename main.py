@@ -101,3 +101,7 @@ president_avec_plus_parle_de_nation(repertoire_corpus, file_names_cleaned)
 # Utilisation de la fonction indiquant quel président a parlé de l'écologie ou du climat en premier
 matrice_tfidf, mots_uniques = calculer_tf_idf_matrix(repertoire_corpus, file_names_cleaned)
 president_plus_tot_a_parler_climat_ecologie(matrice_tfidf, mots_uniques, file_names_cleaned)
+
+# fonction des mots communs à tous les présidents
+seuil_presence = 0.1
+resultat_mots_communs = mots_communs_tous_presidents(matrice_tfidf, mots_uniques, file_names_cleaned, seuil_presence)

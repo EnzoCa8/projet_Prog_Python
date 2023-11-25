@@ -374,3 +374,36 @@ def president_plus_tot_a_parler_climat_ecologie(matrice_tfidf, mots_uniques, fil
         print("Aucun président n'a été trouvé parlant du climat ou de l'écologie dans la matrice TD-IDF.")
         return None
 
+
+
+#fonction des mots communs à tous les présidents
+
+def mots_communs_tous_presidents(matrice_tfidf, mots_uniques, file_names_cleaned, seuil_presence=0.5):
+    # Initialiser un dictionnaire pour stocker les mots présents dans chaque discours
+    mots_par_president = {file_name: set() for file_name in file_names_cleaned}
+
+    # Parcourir les fichiers
+    for j, file_name in enumerate(file_names_cleaned):
+        # Parcourir les mots uniques
+        for i, mot in enumerate(mots_uniques):
+            try:
+                # Vérifier si les indices sont dans les limites de la matrice
+                if i < len(matrice_tfidf) and j < len(matrice_tfidf[i]):
+                    # Extraire le mot et sa valeur TF-IDF de la matrice
+                    mot_tfidf = matrice_tfidf[i][j]
+
+                    # Vérifier si la valeur TF-IDF dépasse le seuil de présence
+                    if float(mot_tfidf[1]) > seuil_presence:
+                        # Ajouter le mot au dictionnaire du président correspondant
+                        mots_par_president[file_name].add(mot)
+            except IndexError as e:
+                print(f"Erreur d'indice pour l'indice ({i}, {j}). Matrice TD-IDF : {len(matrice_tfidf)} x {len(matrice_tfidf[0])}")
+                print(f"Erreur : {e}")
+                continue
+
+    # Trouver les mots communs à tous les présidents
+    mots_communs = set.intersection(*mots_par_president.values())
+
+    # Afficher le résultat
+    print(f"Les mots communs à tous les présidents sont : {mots_communs}")
+    return mots_communs
