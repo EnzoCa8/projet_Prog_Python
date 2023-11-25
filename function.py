@@ -91,36 +91,33 @@ def parcourir_repertoire():
 ## Début Matrice TF-IDF ##
 
     # TF
-def dictionnaire(input_name, input_dir, file_names_cleaned, occurrence=None):
+def dictionnaire(input_dir, file_names_cleaned):
+    # Initialiser le dictionnaire des occurrences en dehors de la boucle
+    occurrence = {}
 
-    # Parcourez chaque fichier
+    # Parcourir chaque fichier
     for input_name in file_names_cleaned:
-        input_path = os.path.join(input_dir)
+        input_path = os.path.join(input_dir, input_name)
 
         # Vérifiez si le fichier d'entrée existe
         if os.path.isfile(input_path):
-            with open(input_path, 'r', encoding='utf-8') as dictionary:
-                content = dictionary.read()
+            with open(input_path, 'r', encoding='utf-8') as fichier:
+                content = fichier.read()
 
-                mots = dictionary.split
-                occurrence = {}
-                for ligne in dictionary:
-                    for mot in mots:
-                        if mot in occurrence:
-                            occurrence[mot] += 1
-                        else :
-                            occurrence[mot] = 1
+                # Diviser le contenu en mots
+                mots = content.split()
 
-                    occurrence_triees = dict(sorted(occurrence.items(), key=lambda x: x[1], reverse=True))
+                # Parcourir chaque mot et mettre à jour le dictionnaire des occurrences
+                for mot in mots:
+                    # Mettre à jour le dictionnaire des occurrences
+                    occurrence[mot] = occurrence.get(mot, 0) + 1
 
-            for mot,occ in occurrence_triees.items():
-                return f"Mot : {mot}, Occurrences : {occ}"
+    # Trier le dictionnaire des occurrences par nombre d'occurrences décroissant
+    occurrence_triees = dict(sorted(occurrence.items(), key=lambda x: x[1], reverse=True))
 
+    # Retourner le dictionnaire trié
+    return occurrence_triees
 
-if __name__== '__main__':
-    input_dir = "cleaned"
-
-    dictionnaire(input_dir,file_names_cleaned=None)
 
 
 

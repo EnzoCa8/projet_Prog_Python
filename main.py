@@ -20,6 +20,7 @@ for element in L:
 print(liste_sans_doublons)
 
 # mettre en minuscule les textes
+'''convertir_en_minuscules(input_directory, output_directory)'''
 
 # Spécifiez les répertoires d'entrée et de sortie
 input_dir = "speeches"
@@ -36,8 +37,6 @@ file_names_cleaned = ["Nomination_Chirac1_cleaned.txt", "Nomination_Chirac2_clea
                       "Nomination_Sarkozy_cleaned.txt"]
 
 # Appeler la fonction pour nettoyer et copier les fichiers
-#convertir_en_minuscules(input_directory, output_directory)
-
 if __name__ == "__main__":
     parcourir_repertoire()
 
@@ -46,5 +45,10 @@ if __name__ == "__main__":
 
 # TF
 
+input_directory = 'cleaned'
+files_to_process_input = input("Entrez la liste des fichiers à traiter séparés par des espaces: ")
+files_to_process = files_to_process_input.split()
+resultat = dictionnaire(input_directory, files_to_process)
+print(resultat)
 
 
