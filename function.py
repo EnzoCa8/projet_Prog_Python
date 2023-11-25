@@ -230,21 +230,19 @@ def afficher_matrice(matrice):
 def mots_moins_importants(matrice_tfidf, mots_uniques):
     mots_non_importants = []
 
-    # Parcourir les indices de mots uniques
-    for i in range(len(mots_uniques)):
+    # Parcourir les mots uniques
+    for i, mot in enumerate(mots_uniques):
         try:
+            # Récupérer l'indice du mot dans la matrice
+            indice_mot = [j for j, valeur in enumerate(matrice_tfidf) if valeur[0] == mot]
+
             # Vérifier si le TD-IDF est nul dans tous les fichiers
-            if all(tfidf == 0 for tfidf in matrice_tfidf[i]):
-                mots_non_importants.append(mots_uniques[i])
-                # Ajouter des impressions supplémentaires pour visualiser les valeurs de TD-IDF
-                print(f"Mot non important : {mots_uniques[i]}")
-                print(f"Valeurs de TD-IDF pour ce mot : {matrice_tfidf[i]}")
+            if all(matrice_tfidf[indice][1] == '0' for indice in indice_mot):
+                mots_non_importants.append(mot)
         except IndexError:
-            print(f"Erreur d'indice pour l'indice {i}. Matrice TD-IDF : {len(matrice_tfidf)} x {len(matrice_tfidf[0])}")
+            print(f"Erreur d'indice pour le mot {mot}. Matrice TD-IDF : {len(matrice_tfidf)} x {len(matrice_tfidf[0])}")
             continue  # Continuer la boucle après avoir traité l'erreur
 
-    # Ajouter des impressions supplémentaires
-    print(f"Longueur des mots non importants : {len(mots_non_importants)}")
-    print(f"Mots non importants : {mots_non_importants}")
+
 
     return mots_non_importants

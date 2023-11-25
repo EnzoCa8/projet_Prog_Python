@@ -87,4 +87,4 @@ print("Longueur des mots uniques:", len(mots_uniques))
 mots_non_importants = mots_moins_importants(matrice_tfidf, mots_uniques)
 
 # Affichage de la liste des mots moins importants
-print("Mots moins importants:", mots_non_importants)
+print("Mots non importants:", mots_non_importants)
