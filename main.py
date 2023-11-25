@@ -78,12 +78,12 @@ afficher_matrice(matrice_transposee)
 #fonctionnalités matrice TFIDF
 
 matrice_tfidf, mots_uniques = calculer_tf_idf_matrix(repertoire_corpus, file_names_cleaned)
-
+##1er fonctionnalités
 # Appeler la fonction pour obtenir la liste des mots moins importants
 mots_non_importants = mots_moins_importants(matrice_tfidf, mots_uniques)
 print("Mots non importants:", mots_non_importants)
 
-
+#2ème fonctionnalité
 # Appeler la fonction pour afficher les mots ayant le score TD-IDF le plus élevé
 mots_importants_tfidf, scores_max_tfidf = mots_plus_importants_tfidf(matrice_tfidf, mots_uniques)
 
@@ -91,17 +91,20 @@ mots_importants_tfidf, scores_max_tfidf = mots_plus_importants_tfidf(matrice_tfi
 print("Mots ayant le score TF-IDF le plus élevé :", mots_importants_tfidf)
 print("Scores TF-IDF correspondants :", scores_max_tfidf)
 
-
+#3ème fonctionnalité
 #Appeler la fonction indiquant le mot le plus répété par Chirac dans ses discours
 mots_plus_repetes_par_chirac(repertoire_corpus, file_names_cleaned)
 
+#4eme fonctionnalité
 # Utilisation de la fonction qui indique quel président a le plus parlé de la nation
 president_avec_plus_parle_de_nation(repertoire_corpus, file_names_cleaned)
 
+#5eme fonctionnalité
 # Utilisation de la fonction indiquant quel président a parlé de l'écologie ou du climat en premier
 matrice_tfidf, mots_uniques = calculer_tf_idf_matrix(repertoire_corpus, file_names_cleaned)
 president_plus_tot_a_parler_climat_ecologie(matrice_tfidf, mots_uniques, file_names_cleaned)
 
+#6ème fonctionnalité
 # fonction des mots communs à tous les présidents
 seuil_presence = 0.1
 resultat_mots_communs = mots_communs_tous_presidents(matrice_tfidf, mots_uniques, file_names_cleaned, seuil_presence)
