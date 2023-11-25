@@ -79,12 +79,14 @@ afficher_matrice(matrice_transposee)
 
 matrice_tfidf, mots_uniques = calculer_tf_idf_matrix(repertoire_corpus, file_names_cleaned)
 
-# Débogage : Afficher les dimensions de la matrice et la longueur des mots uniques
-print("Dimensions de la matrice TF-IDF:", len(matrice_tfidf), "x", len(matrice_tfidf[0]))
-print("Longueur des mots uniques:", len(mots_uniques))
-
 # Appeler la fonction pour obtenir la liste des mots moins importants
 mots_non_importants = mots_moins_importants(matrice_tfidf, mots_uniques)
-
-# Affichage de la liste des mots moins importants
 print("Mots non importants:", mots_non_importants)
+
+
+# Appeler la fonction pour afficher les mots ayant le score TD-IDF le plus élevé
+mots_importants_tfidf, scores_max_tfidf = mots_plus_importants_tfidf(matrice_tfidf, mots_uniques)
+
+# Afficher les résultats
+print("Mots ayant le score TF-IDF le plus élevé :", mots_importants_tfidf)
+print("Scores TF-IDF correspondants :", scores_max_tfidf)

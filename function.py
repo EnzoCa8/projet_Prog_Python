@@ -185,16 +185,15 @@ def calculer_tf_idf_matrix(repertoire_corpus, file_names_cleaned):
 
     return matrice_tfidf_transposee, mots_uniques
 
-
 def transposee_matrice(matrice):
     nb_lignes, nb_colonnes = len(matrice), len(matrice[0])
     matrice_transposee = []
 
     for j in range(nb_colonnes):
-        nouvelle_ligne = []
+        nouvelle_colonne = []
         for i in range(nb_lignes):
-            nouvelle_ligne.append(matrice[i][j])
-        matrice_transposee.append(nouvelle_ligne)
+            nouvelle_colonne.append(matrice[i][j])
+        matrice_transposee.append(nouvelle_colonne)
 
     return matrice_transposee
 
@@ -206,26 +205,6 @@ def afficher_matrice(matrice):
 
 
 #fonctionnalité TFIDF
-
-'''def mots_moins_importants(matrice_tfidf, mots_uniques):
-    mots_non_importants = []
-
-    # Vérifier si la matrice TF-IDF est vide
-    if not matrice_tfidf or not matrice_tfidf[0]:
-        print("La matrice TF-IDF est vide ou mal formée.")
-        return mots_non_importants
-
-    # Parcourir la liste des mots uniques
-    for i, mot in enumerate(mots_uniques):
-        # Vérifier si l'indice est dans la plage de la matrice TF-IDF
-        if i < len(matrice_tfidf):
-            # Vérifier si le TF-IDF est égal à 0 dans tous les fichiers
-            if all(tfidf == 0 for tfidf in matrice_tfidf[i]):
-                mots_non_importants.append(mot)
-        else:
-            print("L'indice", i, "dépasse la longueur de la matrice TF-IDF.")
-
-    return mots_non_importants'''
 
 def mots_moins_importants(matrice_tfidf, mots_uniques):
     mots_non_importants = []
@@ -246,3 +225,42 @@ def mots_moins_importants(matrice_tfidf, mots_uniques):
 
 
     return mots_non_importants
+
+
+def mots_plus_importants_tfidf(matrice_tfidf, mots_uniques):
+    mots_importants_tfidf = []
+    scores_max_tfidf = []
+
+    # Parcourir les indices de mots uniques
+    for i in range(len(mots_uniques)):
+        try:
+            # Obtenir les scores TF-IDF pour le mot courant
+            tfidf_scores = [float(score[1]) for score in matrice_tfidf[i]]
+
+            # Vérifier si la liste des scores n'est pas vide
+            if tfidf_scores:
+                # Trouver le score TF-IDF le plus élevé
+                max_tfidf = max(tfidf_scores)
+
+                # Vérifier si max_tfidf est un nombre positif
+                if isinstance(max_tfidf, (int, float)) and max_tfidf > 0:
+                    # Ajouter le mot et le score correspondant aux listes résultantes
+                    index_max_tfidf = tfidf_scores.index(max_tfidf)
+                    mot_max_tfidf = mots_uniques[i]
+                    mots_importants_tfidf.append(mot_max_tfidf)
+                    scores_max_tfidf.append(max_tfidf)
+
+                    # Ajouter des impressions supplémentaires pour visualiser les valeurs de TF-IDF
+                    print(f"Mot important : {mot_max_tfidf}")
+                    print(f"Score TF-IDF correspondant : {max_tfidf}")
+        except IndexError:
+            print(f"Erreur d'indice pour l'indice {i}. Matrice TD-IDF : {len(matrice_tfidf)} x {len(matrice_tfidf[0])}")
+            continue  # Continuer la boucle après avoir traité l'erreur
+
+    # Ajouter des impressions supplémentaires
+    print(f"Mots ayant le score TF-IDF le plus élevé : {mots_importants_tfidf}")
+    print(f"Scores TF-IDF correspondants : {scores_max_tfidf}")
+
+    return mots_importants_tfidf, scores_max_tfidf
+
+
