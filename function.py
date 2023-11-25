@@ -336,5 +336,41 @@ def president_avec_plus_parle_de_nation(repertoire_corpus, file_names_cleaned):
 
 
 
+#fonction quel président a parlé en premier du climat et/ou de l'écologie
 
+def president_plus_tot_a_parler_climat_ecologie(matrice_tfidf, mots_uniques, file_names_cleaned):
+    # Initialiser un dictionnaire pour stocker la première occurrence de parler de climat ou d'écologie par président
+    premier_parler = {}
+
+    # Parcourir les fichiers
+    for j, file_name in enumerate(file_names_cleaned):
+        # Parcourir les mots uniques
+        for i, mot in enumerate(mots_uniques):
+            try:
+                # Vérifier si les indices sont dans les limites de la matrice
+                if i < len(matrice_tfidf) and j < len(matrice_tfidf[i]):
+                    # Extraire le mot et sa valeur TF-IDF de la matrice
+                    mot_tfidf = matrice_tfidf[i][j]
+
+                    # Vérifier si le mot concerne le climat ou l'écologie
+                    if any(keyword in mot.lower() for keyword in ["climat", "écologie"]):
+                        # Vérifier si le président est déjà dans le dictionnaire
+                        if file_name not in premier_parler:
+                            premier_parler[file_name] = {"mot": mot, "valeur_tfidf": float(mot_tfidf[1])}
+            except IndexError as e:
+                print(f"Erreur d'indice pour l'indice ({i}, {j}). Matrice TD-IDF : {len(matrice_tfidf)} x {len(matrice_tfidf[0])}")
+                print(f"Erreur : {e}")
+                continue
+
+    # Vérifier si des présidents ont été trouvés
+    if premier_parler:
+        # Trouver le président qui a parlé en premier
+        premier_president = min(premier_parler, key=lambda x: premier_parler[x]["valeur_tfidf"])
+
+        # Afficher le résultat
+        print(f"Le président qui a parlé en premier du climat ou de l'écologie est {premier_president} avec le mot '{premier_parler[premier_president]['mot']}' et une valeur TF-IDF de {premier_parler[premier_president]['valeur_tfidf']}")
+        return premier_president
+    else:
+        print("Aucun président n'a été trouvé parlant du climat ou de l'écologie dans la matrice TD-IDF.")
+        return None
 

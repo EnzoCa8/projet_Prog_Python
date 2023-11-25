@@ -97,3 +97,7 @@ mots_plus_repetes_par_chirac(repertoire_corpus, file_names_cleaned)
 
 # Utilisation de la fonction qui indique quel président a le plus parlé de la nation
 president_avec_plus_parle_de_nation(repertoire_corpus, file_names_cleaned)
+
+# Utilisation de la fonction indiquant quel président a parlé de l'écologie ou du climat en premier
+matrice_tfidf, mots_uniques = calculer_tf_idf_matrix(repertoire_corpus, file_names_cleaned)
+president_plus_tot_a_parler_climat_ecologie(matrice_tfidf, mots_uniques, file_names_cleaned)
