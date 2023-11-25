@@ -21,7 +21,7 @@ print(liste_sans_doublons)
 
 # mettre en minuscule les textes
 
-    # Spécifiez les répertoires d'entrée et de sortie
+# Spécifiez les répertoires d'entrée et de sortie
 input_dir = "speeches"
 output_dir = "cleaned"
 
@@ -35,10 +35,11 @@ file_names_cleaned = ["Nomination_Chirac1_cleaned.txt", "Nomination_Chirac2_clea
                       "Nomination_Mitterrand1_cleaned.txt", "Nomination_Mitterrand2_cleaned.txt",
                       "Nomination_Sarkozy_cleaned.txt"]
 
-    # Appeler la fonction pour nettoyer et copier les fichiers
-convertir_en_minuscules(input_directory, output_directory)
+# Appeler la fonction pour nettoyer et copier les fichiers
+#convertir_en_minuscules(input_directory, output_directory)
 
-
+if __name__ == "__main__":
+    parcourir_repertoire()
 
 
 ## Début Matrice TF-IDF ##

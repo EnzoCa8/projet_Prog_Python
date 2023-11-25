@@ -1,8 +1,6 @@
-
 import string
-
-
 import os
+
 def list_of_files(directory, extension):
     files_names = []
     for filename in os.listdir(directory):
@@ -61,23 +59,29 @@ def convertir_en_minuscules(input_dir, output_dir, file_names, file_names_cleane
 
 # enlever ponctuation
 
-'''def sup_pontuation(nom_fichier):
+def nettoyer_texte(texte):
+    # Supprimer la ponctuation
+    ponctuation = string.punctuation
+    texte_nettoye = ''.join(caractere if caractere not in ponctuation else ' ' for caractere in texte)
+    return texte_nettoye
 
-    with open(nom_fichier, 'r', encoding='utf-8') as fichier:
+def traiter_fichier(nom_fichier):
+    chemin_fichier = os.path.join('cleaned', nom_fichier)
+
+    with open(chemin_fichier, 'r', encoding='utf-8') as fichier:
         texte = fichier.read()
+        texte_nettoye = nettoyer_texte(texte)
 
-    texte_sans_ponctuation = ''.join(caractere if caractere not in string.punctuation else ' ' for caractere in texte)
+    with open(chemin_fichier, 'w', encoding='utf-8') as fichier:
+        fichier.write(texte_nettoye)
 
-    texte_final = ' '.join(mot.replace('-', ' ').replace('\'', ' ') if '-' in mot or '\'' in mot else mot for mot in texte_sans_ponctuation.split())
+def parcourir_repertoire():
+    repertoire = 'cleaned'
+    for nom_fichier in os.listdir(repertoire):
+        if nom_fichier.endswith('.txt'):
+            traiter_fichier(nom_fichier)
 
-    with open(nom_fichier, 'w', encoding='utf-8') as fichier:
-        fichier.write(texte_final)
 
-directory = './cleaned'
-
-# Parcourir tous les fichiers dans le répertoire "cleaned"
-for nom_fichier in os.listdir(directory):
-    nom_fichier = sup_pontuation(nom_fichier)'''
 
 
 
