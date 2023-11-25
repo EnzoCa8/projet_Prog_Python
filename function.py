@@ -2,6 +2,7 @@ import string
 import os
 import math
 from collections import Counter
+
 def list_of_files(directory, extension):
     files_names = []
     for filename in os.listdir(directory):
