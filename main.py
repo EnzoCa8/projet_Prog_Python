@@ -90,3 +90,7 @@ mots_importants_tfidf, scores_max_tfidf = mots_plus_importants_tfidf(matrice_tfi
 # Afficher les résultats
 print("Mots ayant le score TF-IDF le plus élevé :", mots_importants_tfidf)
 print("Scores TF-IDF correspondants :", scores_max_tfidf)
+
+
+#Appeler la fonction indiquant le mot le plus répété par Chirac dans ses discours
+mots_plus_repetes_par_chirac(repertoire_corpus, file_names_cleaned)

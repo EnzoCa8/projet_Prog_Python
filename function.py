@@ -264,3 +264,32 @@ def mots_plus_importants_tfidf(matrice_tfidf, mots_uniques):
     return mots_importants_tfidf, scores_max_tfidf
 
 
+def mots_plus_repetes_par_chirac(repertoire_corpus, file_names_cleaned):
+    # Calculer le dictionnaire TF
+    tf_dict = dico_TF(repertoire_corpus, file_names_cleaned)
+
+    # Identifier les fichiers de Jacques Chirac
+    fichiers_chirac = ["Nomination_Chirac1_cleaned.txt", "Nomination_Chirac2_cleaned.txt"]
+
+    # Liste pour stocker les résultats pour chaque fichier
+    mots_plus_repetes_par_fichier = []
+
+    # Parcourir les fichiers de Chirac
+    for fichier_chirac in fichiers_chirac:
+        # Vérifier si le fichier de Jacques Chirac est présent dans le corpus
+        if fichier_chirac in tf_dict:
+            occurrences_chirac = tf_dict[fichier_chirac]
+
+            # Trouver le(s) mot(s) le(s) plus répété(s)
+            mots_plus_repetes = [mot for mot, occ in occurrences_chirac.items() if occ == max(occurrences_chirac.values())]
+
+            # Ajouter les résultats à la liste
+            mots_plus_repetes_par_fichier.append((fichier_chirac, mots_plus_repetes))
+        else:
+            print(f"Le fichier de Jacques Chirac ({fichier_chirac}) n'a pas été trouvé dans le corpus.")
+
+    # Afficher les résultats
+    for fichier, mots_plus_repetes in mots_plus_repetes_par_fichier:
+        print(f"Le(s) mot(s) le(s) plus répété(s) par le président Chirac dans le fichier {fichier} : {mots_plus_repetes}")
+
+
