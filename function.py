@@ -195,5 +195,47 @@ def transposee_matrice(matrice):
 
     return matrice_transposee
 
+#fonctionnalité TFIDF
 
 
+'''def mots_moins_importants(matrice_tfidf, mots_uniques):
+    mots_non_importants = []
+
+    # Vérifier si la matrice TF-IDF est vide
+    if not matrice_tfidf or not matrice_tfidf[0]:
+        print("La matrice TF-IDF est vide ou mal formée.")
+        return mots_non_importants
+
+    # Parcourir la liste des mots uniques
+    for i, mot in enumerate(mots_uniques):
+        # Vérifier si l'indice est dans la plage de la matrice TF-IDF
+        if i < len(matrice_tfidf):
+            # Vérifier si le TF-IDF est égal à 0 dans tous les fichiers
+            if all(tfidf == 0 for tfidf in matrice_tfidf[i]):
+                mots_non_importants.append(mot)
+        else:
+            print("L'indice", i, "dépasse la longueur de la matrice TF-IDF.")
+
+    return mots_non_importants'''
+
+def mots_moins_importants(matrice_tfidf, mots_uniques):
+    mots_non_importants = []
+
+    # Parcourir les indices de mots uniques
+    for i in range(len(mots_uniques)):
+        try:
+            # Vérifier si le TD-IDF est nul dans tous les fichiers
+            if all(tfidf == 0 for tfidf in matrice_tfidf[i]):
+                mots_non_importants.append(mots_uniques[i])
+                # Ajouter des impressions supplémentaires pour visualiser les valeurs de TD-IDF
+                print(f"Mot non important : {mots_uniques[i]}")
+                print(f"Valeurs de TD-IDF pour ce mot : {matrice_tfidf[i]}")
+        except IndexError:
+            print(f"Erreur d'indice pour l'indice {i}. Matrice TD-IDF : {len(matrice_tfidf)} x {len(matrice_tfidf[0])}")
+            continue  # Continuer la boucle après avoir traité l'erreur
+
+    # Ajouter des impressions supplémentaires
+    print(f"Longueur des mots non importants : {len(mots_non_importants)}")
+    print(f"Mots non importants : {mots_non_importants}")
+
+    return mots_non_importants

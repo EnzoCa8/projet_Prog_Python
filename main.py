@@ -76,3 +76,15 @@ for ligne in matrice_tfidf_resultat:
     print(ligne)
 
 #fonctionnalités matrice TFIDF
+
+matrice_tfidf, mots_uniques = calculer_tf_idf_matrix(repertoire_corpus, file_names_cleaned)
+
+# Débogage : Afficher les dimensions de la matrice et la longueur des mots uniques
+print("Dimensions de la matrice TF-IDF:", len(matrice_tfidf), "x", len(matrice_tfidf[0]))
+print("Longueur des mots uniques:", len(mots_uniques))
+
+# Appeler la fonction pour obtenir la liste des mots moins importants
+mots_non_importants = mots_moins_importants(matrice_tfidf, mots_uniques)
+
+# Affichage de la liste des mots moins importants
+print("Mots moins importants:", mots_non_importants)
