@@ -65,6 +65,7 @@ def nettoyer_texte(texte):
     texte_nettoye = ''.join(caractere if caractere not in ponctuation else ' ' for caractere in texte)
     return texte_nettoye
 
+#appliquer la fonction nettoyer_texte sur un fichier
 def traiter_fichier(nom_fichier):
     chemin_fichier = os.path.join('cleaned', nom_fichier)
 
@@ -75,6 +76,8 @@ def traiter_fichier(nom_fichier):
     with open(chemin_fichier, 'w', encoding='utf-8') as fichier:
         fichier.write(texte_nettoye)
 
+
+#appliquer la fonction traiter_fichier sur un repertoire
 def parcourir_repertoire():
     repertoire = 'cleaned'
     for nom_fichier in os.listdir(repertoire):
