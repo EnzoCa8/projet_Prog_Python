@@ -170,21 +170,24 @@ def calculer_tf_idf_matrix(repertoire_corpus, file_names_cleaned):
     # Initialiser la liste des mots uniques
     mots_uniques = list(set(tf_dict.keys()).union(idf_dict.keys()))
 
-    # Initialiser la matrice TF-IDF avec des zéros
-    matrice_tfidf = [[0.0] * len(file_names_cleaned) for _ in range(len(mots_uniques))]
+    # Initialiser le dictionnaire pour associer les mots à leurs indices dans la matrice
+    mots_indices = {mot: i for i, mot in enumerate(mots_uniques)}
+
+    # Initialiser la matrice TF-IDF avec des listes vides
+    matrice_tfidf = [[] for _ in range(len(mots_uniques))]
 
     # Remplir la matrice TF-IDF en multipliant les valeurs correspondantes de TF et IDF
     for i, mot in enumerate(mots_uniques):
-        for j, file_name in enumerate(file_names_cleaned):
-            tf_value = tf_dict.get(file_name, {}).get(mot, 0)  # Correction ici
-            idf_value = idf_dict.get(mot, 0)
-            matrice_tfidf[i][j] = tf_value * idf_value
+        tf_value = tf_dict.get(file_names_cleaned[0], {}).get(mot, 0)  # On prend le premier fichier pour obtenir le nom des mots
+        idf_value = idf_dict.get(mot, 0)
+        matrice_tfidf[mots_indices[mot]].append([mot, str(tf_value * idf_value)])
 
     # Calculer la transposée de la matrice sans utiliser de fonction prédéfinie
     matrice_tfidf_transposee = transposee_matrice(matrice_tfidf)
 
     return matrice_tfidf_transposee, mots_uniques
-def transposee_matrice(matrice):
+
+'''def transposee_matrice(matrice):
     # Fonction pour calculer la transposée d'une matrice sans utiliser de fonction prédéfinie
     nb_lignes, nb_colonnes = len(matrice), len(matrice[0])
     matrice_transposee = [[0] * nb_lignes for _ in range(nb_colonnes)]
@@ -193,7 +196,25 @@ def transposee_matrice(matrice):
         for j in range(nb_colonnes):
             matrice_transposee[j][i] = matrice[i][j]
 
+    return matrice_transposee'''
+
+
+def transposee_matrice(matrice):
+    # Fonction pour calculer la transposée d'une matrice sans utiliser de fonction prédéfinie
+    nb_lignes, nb_colonnes = len(matrice), len(matrice[0])
+
+    # Créer une matrice transposée avec le nombre de lignes et de colonnes inversé
+    matrice_transposee = [[0] * nb_lignes for _ in range(nb_colonnes)]
+
+    for i in range(nb_lignes):
+        for j in range(nb_colonnes):
+            matrice_transposee[j][i] = matrice[i][j]
+
     return matrice_transposee
+
+def afficher_matrice(matrice):
+    for ligne in matrice:
+        print(ligne)
 
 #fonctionnalité TFIDF
 
@@ -216,7 +237,7 @@ def transposee_matrice(matrice):
         else:
             print("L'indice", i, "dépasse la longueur de la matrice TF-IDF.")
 
-    return mots_non_importants'''
+    return mots_non_importants
 
 def mots_moins_importants(matrice_tfidf, mots_uniques):
     mots_non_importants = []
@@ -238,4 +259,4 @@ def mots_moins_importants(matrice_tfidf, mots_uniques):
     print(f"Longueur des mots non importants : {len(mots_non_importants)}")
     print(f"Mots non importants : {mots_non_importants}")
 
-    return mots_non_importants
+    return mots_non_importants'''
