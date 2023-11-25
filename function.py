@@ -295,8 +295,6 @@ def mots_plus_repetes_par_chirac(repertoire_corpus, file_names_cleaned):
 
 #fonction indiquant quel président a le plus parlé de la nation
 
-from collections import Counter
-import re
 
 def president_avec_plus_parle_de_nation(repertoire_corpus, file_names_cleaned):
     # Calculer le dictionnaire TF
