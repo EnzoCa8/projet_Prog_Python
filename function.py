@@ -159,6 +159,9 @@ def calculer_idf(repertoire_corpus):
     return idf_scores
 
 
+#TF-IDF
+
+
 
 
 

@@ -45,6 +45,9 @@ if __name__ == "__main__":
 
 # TF
 
+#liste des fichiers cleaned à copier coller au besoin entre ' ' dans files_to_process_input :
+#Nomination_Chirac1_cleaned.txt, Nomination_Chirac2_cleaned.txt, Nomination_Giscard dEstaing_cleaned.txt, Nomination_Hollande_cleaned.txt, Nomination_Macron_cleaned.txt, Nomination_Mitterrand1_cleaned.txt, Nomination_Mitterrand2_cleaned.txt, Nomination_Sarkozy_cleaned.txt
+
 
 input_directory = 'cleaned'
 files_to_process_input = input("Entrez la liste des fichiers à traiter séparés par des espaces: ")
