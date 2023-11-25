@@ -1,5 +1,6 @@
 import string
 import os
+import math
 
 def list_of_files(directory, extension):
     files_names = []
@@ -119,11 +120,43 @@ def dictionnaire(input_dir, file_names_cleaned):
     return occurrence_triees
 
 
+#IDF
 
+def calculer_idf(repertoire_corpus):
+    # Initialiser le dictionnaire pour stocker le nombre de documents contenant chaque mot
+    documents_contenant_mot = {}
 
+    # Nombre total de documents dans le corpus
+    total_documents = 0
 
+    # Parcourir chaque fichier dans le répertoire du corpus
+    for nom_fichier in os.listdir(repertoire_corpus):
+        chemin_fichier = os.path.join(repertoire_corpus, nom_fichier)
 
+        # Vérifier si le chemin est un fichier
+        if os.path.isfile(chemin_fichier):
+            total_documents += 1
 
+            # Lire le contenu du fichier
+            with open(chemin_fichier, 'r', encoding='utf-8') as fichier:
+                contenu = fichier.read()
+
+                # Diviser le contenu en mots
+                mots = contenu.split()
+
+                # Identifier les mots uniques dans le fichier
+                mots_uniques = set(mots)
+
+                # Mettre à jour le dictionnaire des documents contenant chaque mot
+                for mot in mots_uniques:
+                    documents_contenant_mot[mot] = documents_contenant_mot.get(mot, 0) + 1
+
+    # Calculer le score IDF pour chaque mot
+    idf_scores = {}
+    for mot, nb_documents_contenant in documents_contenant_mot.items():
+        idf_scores[mot] = math.log(total_documents / (1 + nb_documents_contenant))
+
+    return idf_scores
 
 
 

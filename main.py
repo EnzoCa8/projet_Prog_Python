@@ -45,10 +45,17 @@ if __name__ == "__main__":
 
 # TF
 
+
 input_directory = 'cleaned'
 files_to_process_input = input("Entrez la liste des fichiers à traiter séparés par des espaces: ")
 files_to_process = files_to_process_input.split()
 resultat = dictionnaire(input_directory, files_to_process)
 print(resultat)
+
+#IDF
+
+repertoire_corpus = 'cleaned'
+idf_resultats = calculer_idf(repertoire_corpus)
+print(idf_resultats)
 
 
