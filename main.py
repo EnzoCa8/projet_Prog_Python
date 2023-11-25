@@ -72,12 +72,12 @@ files_to_process = files_to_process_input.split()
 matrice_tfidf_resultat, mots_uniques = calculer_tf_idf_matrix(repertoire_corpus, files_to_process)
 print("Mots uniques:", mots_uniques)
 print("Matrice TF-IDF:")
-matrice = transposee_matrice(matrice_tfidf_resultat)
-print(matrice_tfidf_resultat)
+matrice_transposee = transposee_matrice(matrice_tfidf_resultat)
+afficher_matrice(matrice_transposee)
 
 #fonctionnalités matrice TFIDF
 
-'''matrice_tfidf, mots_uniques = calculer_tf_idf_matrix(repertoire_corpus, file_names_cleaned)
+matrice_tfidf, mots_uniques = calculer_tf_idf_matrix(repertoire_corpus, file_names_cleaned)
 
 # Débogage : Afficher les dimensions de la matrice et la longueur des mots uniques
 print("Dimensions de la matrice TF-IDF:", len(matrice_tfidf), "x", len(matrice_tfidf[0]))
@@ -87,4 +87,4 @@ print("Longueur des mots uniques:", len(mots_uniques))
 mots_non_importants = mots_moins_importants(matrice_tfidf, mots_uniques)
 
 # Affichage de la liste des mots moins importants
-print("Mots moins importants:", mots_non_importants)'''
+print("Mots moins importants:", mots_non_importants)
