@@ -4,6 +4,8 @@ from main import *
 
 window = tk.Tk()
 window.title("Menu pour les fonctionnalités")
+window.config(background='#052389')
+
 
 # Boutons pour chaque fonctionnalité
 button_mots_non_importants = tk.Button(window, text="1. Mots Non Importants", command=mots_non_importants)

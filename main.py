@@ -37,8 +37,7 @@ file_names_cleaned = ["Nomination_Chirac1_cleaned.txt", "Nomination_Chirac2_clea
                       "Nomination_Sarkozy_cleaned.txt"]
 
 # Appeler la fonction pour nettoyer et copier les fichiers
-if __name__ == "__main__":
-    parcourir_repertoire()
+parcourir_repertoire()
 
 
 ## Début Matrice TF-IDF ##
