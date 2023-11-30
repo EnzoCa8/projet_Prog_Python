@@ -279,7 +279,7 @@ def mots_plus_repetes_par_chirac(repertoire_corpus, file_names_cleaned):
 
     # Afficher les résultats
     for fichier, mots_plus_repetes in mots_plus_repetes_par_fichier:
-        print("Le(s) mot(s) le(s) plus répété(s) par le président Chirac dans le fichier", fichier, ": mots_plus_repetes")
+        print("Le(s) mot(s) le(s) plus répété(s) par le président Chirac dans le fichier", fichier, ":", mots_plus_repetes)
 
 
 
@@ -321,7 +321,7 @@ def president_avec_plus_parle_de_nation(repertoire_corpus, file_names_cleaned):
     nb_occurrences_max = occurrences_par_president[president_max_occurrences]
 
     # Afficher le résultat
-    print("Le président qui a le plus parlé de la nation est", president_max_occurrences, "avec", nb_occurrences_max," occurrences.")
+    print("Le président qui a le plus parlé de la nation est", president_max_occurrences, "avec", nb_occurrences_max,"occurrences.")
 
 
 

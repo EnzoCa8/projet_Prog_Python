@@ -3,7 +3,7 @@ from function import*
 
 directory = "./speeches"
 files_names = list_of_files(directory, "txt")
-print(files_names)
+#print(files_names)
 
 
 T = ["Nomination_Chirac1.txt", "Nomination_Chirac2.txt", "Nomination_Giscard dEstaing.txt",
@@ -18,7 +18,7 @@ for element in L:
     if element not in liste_sans_doublons:
         liste_sans_doublons.append(element)
 
-print(liste_sans_doublons)
+#print(liste_sans_doublons)
 
 # mettre en minuscule les textes
 '''convertir_en_minuscules(input_directory, output_directory)'''
@@ -55,13 +55,13 @@ files_to_process_input = input("Entrez la liste des fichiers à traiter séparé
 files_to_process = files_to_process_input.split()
 
 resultat_dico_tf = dico_TF(repertoire_corpus, files_to_process)
-print(resultat_dico_tf)
+#print(resultat_dico_tf)
 
 #IDF
 
 repertoire_corpus = 'cleaned'
 idf_resultats = calculer_idf(repertoire_corpus)
-print(idf_resultats)
+#print(idf_resultats)
 
 #matrice TF IDF
 
@@ -71,10 +71,10 @@ files_to_process_input = input("Entrez la liste des fichiers à traiter séparé
 files_to_process = files_to_process_input.split()
 
 matrice_tfidf_resultat, mots_uniques = calculer_tf_idf_matrix(repertoire_corpus, files_to_process)
-print("Mots uniques:", mots_uniques)
-print("Matrice TF-IDF:")
+#print("Mots uniques:", mots_uniques)
+#print("Matrice TF-IDF:")
 matrice_transposee = transposee_matrice(matrice_tfidf_resultat)
-afficher_matrice(matrice_transposee)
+#afficher_matrice(matrice_transposee)
 
 #fonctionnalités matrice TFIDF
 
