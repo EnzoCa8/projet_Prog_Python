@@ -87,7 +87,7 @@ valeur = int(input("Quelles fonctionnalité voulez vous utilisez ? Taper 1 pour 
       "5 pour savoir quel président a parlé de l'écologie ou du climat en premier et 6 pour les mots communs à tous les présidents"))
 matrice_tfidf, mots_uniques = calculer_tf_idf_matrix(repertoire_corpus, file_names_cleaned)
 if valeur < 1:
-    valeur = int(input("Quelles fonctionnalité voulez vous utilisez ? Taper 1 pour la liste des mots les moins importants, 2 pour les mots ayant le score TD-IDF le plus élevé, "
+    valeur = int(input("Quelles  fonctionnalité voulez vous utilisez ? Taper 1 pour la liste des mots les moins importants, 2 pour les mots ayant le score TD-IDF le plus élevé, "
                        "3 pour le mot le plus répété par Chirac dans ses discours, 4 pour savoir quel président a le plus parlé de la nation"
                        "5 pour savoir quel président a parlé de l'écologie ou du climat en premier et 6 pour les mots communs à tous les présidents"))
 
