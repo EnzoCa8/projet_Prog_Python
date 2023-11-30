@@ -1,7 +1,6 @@
 import string
 import os
 import math
-from collections import Counter
 
 def list_of_files(directory, extension):
     files_names = []
@@ -248,10 +247,6 @@ def mots_plus_importants_tfidf(matrice_tfidf, mots_uniques):
                     mots_importants_tfidf.append(mot_max_tfidf)
                     scores_max_tfidf.append(max_tfidf)
 
-    # Ajouter des impressions supplémentaires
-    #print(f"Mots ayant le score TF-IDF le plus élevé : {mots_importants_tfidf}")
-    #print(f"Scores TF-IDF correspondants : {scores_max_tfidf}")
-
     return mots_importants_tfidf, scores_max_tfidf
 
 
@@ -280,11 +275,11 @@ def mots_plus_repetes_par_chirac(repertoire_corpus, file_names_cleaned):
             # Ajouter les résultats à la liste
             mots_plus_repetes_par_fichier.append((fichier_chirac, mots_plus_repetes))
         else:
-            print(f"Le fichier de Jacques Chirac ({fichier_chirac}) n'a pas été trouvé dans le corpus.")
+            print("Le fichier de Jacques Chirac", "(fichier_chirac)", "n'a pas été trouvé dans le corpus.")
 
     # Afficher les résultats
     for fichier, mots_plus_repetes in mots_plus_repetes_par_fichier:
-        print(f"Le(s) mot(s) le(s) plus répété(s) par le président Chirac dans le fichier {fichier} : {mots_plus_repetes}")
+        print("Le(s) mot(s) le(s) plus répété(s) par le président Chirac dans le fichier", fichier, ": mots_plus_repetes")
 
 
 
@@ -326,7 +321,7 @@ def president_avec_plus_parle_de_nation(repertoire_corpus, file_names_cleaned):
     nb_occurrences_max = occurrences_par_president[president_max_occurrences]
 
     # Afficher le résultat
-    print(f"Le président qui a le plus parlé de la nation est {president_max_occurrences} avec {nb_occurrences_max} occurrences.")
+    print("Le président qui a le plus parlé de la nation est", president_max_occurrences, "avec", nb_occurrences_max," occurrences.")
 
 
 
@@ -358,9 +353,10 @@ def president_plus_tot_a_parler_climat_ecologie(matrice_tfidf, mots_uniques, fil
         premier_president = min(premier_parler, key=lambda x: premier_parler[x]["valeur_tfidf"])
 
         # Afficher le résultat
-        print(f"Le président qui a parlé en premier du climat ou de l'écologie est {premier_president} avec le mot '{premier_parler[premier_president]['mot']}' et une valeur TF-IDF de {premier_parler[premier_president]['valeur_tfidf']}")
+        print("Le président qui a parlé en premier du climat ou de l'écologie est", premier_president," avec le mot", premier_parler[premier_president]['mot'], " et une valeur TF-IDF de", premier_parler[premier_president]['valeur_tfidf'])
         return premier_president
     else:
+        print("Aucun président n'a été trouvé parlant du climat ou de l'écologie dans la matrice TD-IDF.")
         print("Aucun président n'a été trouvé parlant du climat ou de l'écologie dans la matrice TD-IDF.")
         return None
 
