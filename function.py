@@ -1,7 +1,6 @@
 import string
 import os
 import math
-from collections import Counter
 
 def list_of_files(directory, extension):
     files_names = []
@@ -212,16 +211,13 @@ def mots_moins_importants(matrice_tfidf, mots_uniques):
 
     # Parcourir les mots uniques
     for i, mot in enumerate(mots_uniques):
-        try:
-            # Récupérer l'indice du mot dans la matrice
-            indice_mot = [j for j, valeur in enumerate(matrice_tfidf) if valeur[0] == mot]
 
-            # Vérifier si le TD-IDF est nul dans tous les fichiers
-            if all(matrice_tfidf[indice][1] == '0' for indice in indice_mot):
-                mots_non_importants.append(mot)
-        except IndexError:
-            print(f"Erreur d'indice pour le mot {mot}. Matrice TD-IDF : {len(matrice_tfidf)} x {len(matrice_tfidf[0])}")
-            continue  # Continuer la boucle après avoir traité l'erreur
+        # Récupérer l'indice du mot dans la matrice
+        indice_mot = [j for j, valeur in enumerate(matrice_tfidf) if valeur[0] == mot]
+
+        # Vérifier si le TD-IDF est nul dans tous les fichiers
+        if all(matrice_tfidf[indice][1] == '0' for indice in indice_mot):
+            mots_non_importants.append(mot)
 
 
 
@@ -233,33 +229,27 @@ def mots_plus_importants_tfidf(matrice_tfidf, mots_uniques):
     scores_max_tfidf = []
 
     # Parcourir les indices de mots uniques
-    for i in range(len(mots_uniques)):
-        try:
+    for i, mot in enumerate(mots_uniques):
+        # Vérifier si l'indice i est dans les limites de la matrice
+        if i < len(matrice_tfidf):
             # Obtenir les scores TF-IDF pour le mot courant
-            tfidf_scores = [float(score[1]) for score in matrice_tfidf[i]]
+            tfidf_scores = [float(score[1]) for score in matrice_tfidf[i] if len(score) == 2]
 
             # Vérifier si la liste des scores n'est pas vide
             if tfidf_scores:
                 # Trouver le score TF-IDF le plus élevé
-                max_tfidf = max(tfidf_scores)
+                max_tfidf = max(tfidf_scores, default=None)
 
                 # Vérifier si max_tfidf est un nombre positif
-                if isinstance(max_tfidf, (int, float)) and max_tfidf > 0:
+                if max_tfidf is not None and max_tfidf > 0:
                     # Ajouter le mot et le score correspondant aux listes résultantes
-                    index_max_tfidf = tfidf_scores.index(max_tfidf)
-                    mot_max_tfidf = mots_uniques[i]
+                    mot_max_tfidf = mot
                     mots_importants_tfidf.append(mot_max_tfidf)
                     scores_max_tfidf.append(max_tfidf)
 
-        except IndexError:
-            print(f"Erreur d'indice pour l'indice {i}. Matrice TD-IDF : {len(matrice_tfidf)} x {len(matrice_tfidf[0])}")
-            continue  # Continuer la boucle après avoir traité l'erreur
-
-    # Ajouter des impressions supplémentaires
-    print(f"Mots ayant le score TF-IDF le plus élevé : {mots_importants_tfidf}")
-    print(f"Scores TF-IDF correspondants : {scores_max_tfidf}")
-
     return mots_importants_tfidf, scores_max_tfidf
+
+
 
 
 #Fonction indiquant quel mot chirac répète le plus dans ses discours
@@ -285,11 +275,11 @@ def mots_plus_repetes_par_chirac(repertoire_corpus, file_names_cleaned):
             # Ajouter les résultats à la liste
             mots_plus_repetes_par_fichier.append((fichier_chirac, mots_plus_repetes))
         else:
-            print(f"Le fichier de Jacques Chirac ({fichier_chirac}) n'a pas été trouvé dans le corpus.")
+            print("Le fichier de Jacques Chirac", "(fichier_chirac)", "n'a pas été trouvé dans le corpus.")
 
     # Afficher les résultats
     for fichier, mots_plus_repetes in mots_plus_repetes_par_fichier:
-        print(f"Le(s) mot(s) le(s) plus répété(s) par le président Chirac dans le fichier {fichier} : {mots_plus_repetes}")
+        print("Le(s) mot(s) le(s) plus répété(s) par le président Chirac dans le fichier", fichier, ": mots_plus_repetes")
 
 
 
@@ -331,7 +321,7 @@ def president_avec_plus_parle_de_nation(repertoire_corpus, file_names_cleaned):
     nb_occurrences_max = occurrences_par_president[president_max_occurrences]
 
     # Afficher le résultat
-    print(f"Le président qui a le plus parlé de la nation est {president_max_occurrences} avec {nb_occurrences_max} occurrences.")
+    print("Le président qui a le plus parlé de la nation est", president_max_occurrences, "avec", nb_occurrences_max," occurrences.")
 
 
 
@@ -345,21 +335,17 @@ def president_plus_tot_a_parler_climat_ecologie(matrice_tfidf, mots_uniques, fil
     for j, file_name in enumerate(file_names_cleaned):
         # Parcourir les mots uniques
         for i, mot in enumerate(mots_uniques):
-            try:
-                # Vérifier si les indices sont dans les limites de la matrice
-                if i < len(matrice_tfidf) and j < len(matrice_tfidf[i]):
-                    # Extraire le mot et sa valeur TF-IDF de la matrice
-                    mot_tfidf = matrice_tfidf[i][j]
 
-                    # Vérifier si le mot concerne le climat ou l'écologie
-                    if any(keyword in mot.lower() for keyword in ["climat", "écologie"]):
-                        # Vérifier si le président est déjà dans le dictionnaire
-                        if file_name not in premier_parler:
-                            premier_parler[file_name] = {"mot": mot, "valeur_tfidf": float(mot_tfidf[1])}
-            except IndexError as e:
-                print(f"Erreur d'indice pour l'indice ({i}, {j}). Matrice TD-IDF : {len(matrice_tfidf)} x {len(matrice_tfidf[0])}")
-                print(f"Erreur : {e}")
-                continue
+            # Vérifier si les indices sont dans les limites de la matrice
+            if i < len(matrice_tfidf) and j < len(matrice_tfidf[i]):
+                # Extraire le mot et sa valeur TF-IDF de la matrice
+                mot_tfidf = matrice_tfidf[i][j]
+
+                # Vérifier si le mot concerne le climat ou l'écologie
+                if any(keyword in mot.lower() for keyword in ["climat", "écologie"]):
+                    # Vérifier si le président est déjà dans le dictionnaire
+                    if file_name not in premier_parler:
+                        premier_parler[file_name] = {"mot": mot, "valeur_tfidf": float(mot_tfidf[1])}
 
     # Vérifier si des présidents ont été trouvés
     if premier_parler:
@@ -367,9 +353,10 @@ def president_plus_tot_a_parler_climat_ecologie(matrice_tfidf, mots_uniques, fil
         premier_president = min(premier_parler, key=lambda x: premier_parler[x]["valeur_tfidf"])
 
         # Afficher le résultat
-        print(f"Le président qui a parlé en premier du climat ou de l'écologie est {premier_president} avec le mot '{premier_parler[premier_president]['mot']}' et une valeur TF-IDF de {premier_parler[premier_president]['valeur_tfidf']}")
+        print("Le président qui a parlé en premier du climat ou de l'écologie est", premier_president," avec le mot", premier_parler[premier_president]['mot'], " et une valeur TF-IDF de", premier_parler[premier_president]['valeur_tfidf'])
         return premier_president
     else:
+        print("Aucun président n'a été trouvé parlant du climat ou de l'écologie dans la matrice TD-IDF.")
         print("Aucun président n'a été trouvé parlant du climat ou de l'écologie dans la matrice TD-IDF.")
         return None
 
@@ -377,32 +364,21 @@ def president_plus_tot_a_parler_climat_ecologie(matrice_tfidf, mots_uniques, fil
 
 #fonction des mots communs à tous les présidents
 
-def mots_communs_tous_presidents(matrice_tfidf, mots_uniques, file_names_cleaned, seuil_presence=0.5):
-    # Initialiser un dictionnaire pour stocker les mots présents dans chaque discours
-    mots_par_president = {file_name: set() for file_name in file_names_cleaned}
+def mots_communs_tous_presidents(directory):
+    # Liste pour stocker les mots de chaque président
+    mots_par_president = []
 
     # Parcourir les fichiers
-    for j, file_name in enumerate(file_names_cleaned):
-        # Parcourir les mots uniques
-        for i, mot in enumerate(mots_uniques):
-            try:
-                # Vérifier si les indices sont dans les limites de la matrice
-                if i < len(matrice_tfidf) and j < len(matrice_tfidf[i]):
-                    # Extraire le mot et sa valeur TF-IDF de la matrice
-                    mot_tfidf = matrice_tfidf[i][j]
+    for file_name in list_of_files(directory, '.txt'):
+        # Lire le fichier et extraire les mots uniques
+        with open(os.path.join(directory, file_name), 'r', encoding='utf-8') as file:
+            mots_president = set(file.read().split())
+            mots_par_president.append(mots_president)
 
-                    # Vérifier si la valeur TF-IDF dépasse le seuil de présence
-                    if float(mot_tfidf[1]) > seuil_presence:
-                        # Ajouter le mot au dictionnaire du président correspondant
-                        mots_par_president[file_name].add(mot)
-            except IndexError as e:
-                print(f"Erreur d'indice pour l'indice ({i}, {j}). Matrice TD-IDF : {len(matrice_tfidf)} x {len(matrice_tfidf[0])}")
-                print(f"Erreur : {e}")
-                continue
+    # Trouver l'intersection des ensembles de mots de chaque président
+    mots_communs = set.intersection(*mots_par_president)
 
-    # Trouver les mots communs à tous les présidents
-    mots_communs = set.intersection(*mots_par_president.values())
+    # Afficher le résultat final
+    print("Mots communs à tous les présidents :", mots_communs)
 
-    # Afficher le résultat
-    print(f"Les mots communs à tous les présidents sont : {mots_communs}")
     return mots_communs
