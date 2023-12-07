@@ -153,7 +153,7 @@ def calculer_idf(repertoire_corpus):
     # Calculer le score IDF pour chaque mot
     idf_scores = {}
     for mot, nb_documents_contenant in documents_contenant_mot.items():
-        idf_scores[mot] = math.log(total_documents / (1 + nb_documents_contenant))
+        idf_scores[mot] = math.log(total_documents / (nb_documents_contenant))
 
     return idf_scores
 
@@ -178,7 +178,7 @@ def calculer_tf_idf_matrix(repertoire_corpus, file_names_cleaned):
         for j, file_name in enumerate(file_names_cleaned):
             tf_value = tf_dict.get(file_name, {}).get(mot, 0)  # Correction ici
             idf_value = idf_dict.get(mot, 0)
-            matrice_tfidf[i][j] = [mot, str(tf_value * idf_value)]  # Paires de mot et de valeur TF-IDF
+            matrice_tfidf[i][j] = tf_value * idf_value  # Stocker uniquement le score TF-IDF
 
     # Calculer la transposée de la matrice sans utiliser de fonction prédéfinie
     matrice_tfidf_transposee = transposee_matrice(matrice_tfidf)
@@ -199,14 +199,25 @@ def transposee_matrice(matrice):
 
 
 
-def afficher_matrice(matrice):
-    for ligne in matrice:
-        print(ligne)
+def afficher_matrice(matrice, file_names, mots_uniques):
+    header = [""] + mots_uniques
+    print(" | ".join(header))
+
+    # Parcourir chaque ligne de la matrice (correspondant à un fichier)
+    for i, ligne in enumerate(matrice):
+        # Afficher le nom du fichier
+        print(file_names[i], end=" | ")
+
+        # Afficher les valeurs TF-IDF pour chaque mot
+        for valeur in ligne:
+            print(valeur, end=" | ")
+
+        print()  # Passer à la ligne suivante
 
 
 #fonctionnalité TFIDF
 
-def mots_moins_importants(matrice_tfidf, mots_uniques):
+'''def mots_moins_importants(matrice_tfidf, mots_uniques):
     mots_non_importants = []
 
     # Parcourir les mots uniques
@@ -221,7 +232,22 @@ def mots_moins_importants(matrice_tfidf, mots_uniques):
 
 
 
-    return mots_non_importants
+    return mots_non_importants'''
+def mots_tfidf_zero_list(matrice_tfidf, mots_uniques, file_names_cleaned):
+    mots_tfidf_zero = []
+
+    # Parcourir les indices de mots uniques
+    for i, mot in enumerate(mots_uniques):
+        # Vérifier si l'indice i est dans les limites de la matrice
+        if i < len(matrice_tfidf):
+            # Obtenir les scores TF-IDF pour le mot courant
+            tfidf_scores = [float(score) for score in matrice_tfidf[i]]
+
+            # Vérifier si tous les scores TF-IDF sont égaux à zéro
+            if all(score == 0.0 for score in tfidf_scores):
+                mots_tfidf_zero.append(mot)
+
+    return mots_tfidf_zero
 
 
 def mots_plus_importants_tfidf(matrice_tfidf, mots_uniques):

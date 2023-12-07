@@ -70,11 +70,11 @@ repertoire_corpus = 'cleaned'
 files_to_process_input = input("Entrez la liste des fichiers à traiter séparés par des espaces: ")
 files_to_process = files_to_process_input.split()
 
-matrice_tfidf_resultat, mots_uniques = calculer_tf_idf_matrix(repertoire_corpus, files_to_process)
+#matrice_tfidf_resultat, mots_uniques = calculer_tf_idf_matrix(repertoire_corpus, files_to_process)
 #print("Mots uniques:", mots_uniques)
 #print("Matrice TF-IDF:")
-matrice_transposee = transposee_matrice(matrice_tfidf_resultat)
-#afficher_matrice(matrice_transposee)
+matrice_tfidf_transposee, mots_uniques = calculer_tf_idf_matrix(repertoire_corpus, file_names_cleaned)
+afficher_matrice(matrice_tfidf_transposee, file_names_cleaned, mots_uniques)
 
 #fonctionnalités matrice TFIDF
 
@@ -94,8 +94,12 @@ if valeur < 1:
 #fonctionalité 1
 # Appeler la fonction pour obtenir la liste des mots moins importants
 elif valeur == 1 :
-    mots_non_importants = mots_moins_importants(matrice_tfidf, mots_uniques)
-    print("Mots non importants:", mots_non_importants)
+    '''mots_non_importants = mots_moins_importants(matrice_tfidf, mots_uniques)
+    print("Mots non importants:", mots_non_importants)'''
+    mots_tfidf_zero = mots_tfidf_zero_list(matrice_tfidf_transposee, mots_uniques, file_names_cleaned)
+
+    # Afficher les mots avec un score TF-IDF strictement égal à 0
+    print("Mots avec un score TF-IDF égal à zéro :", mots_tfidf_zero)
 
 #fonctionalité 2
 # Appeler la fonction pour afficher les mots ayant le score TD-IDF le plus élevé
