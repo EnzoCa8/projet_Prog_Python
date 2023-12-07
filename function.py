@@ -257,7 +257,7 @@ def mots_tfidf_zero_list(matrice_tfidf, mots_uniques, file_names_cleaned):
     return mots_tfidf_zero
 
 
-def mots_plus_importants_tfidf(matrice_tfidf, mots_uniques):
+'''def mots_plus_importants_tfidf(matrice_tfidf, mots_uniques):
     mots_importants_tfidf = []
     scores_max_tfidf = []
 
@@ -280,7 +280,23 @@ def mots_plus_importants_tfidf(matrice_tfidf, mots_uniques):
                     mots_importants_tfidf.append(mot_max_tfidf)
                     scores_max_tfidf.append(max_tfidf)
 
+    return mots_importants_tfidf, scores_max_tfidf'''
+def mots_plus_importants_tfidf(matrice_tfidf, mots_uniques):
+    mots_importants_tfidf = []
+    scores_max_tfidf = []
+
+    # Parcourir chaque colonne de la matrice (correspondant à un mot)
+    for i, mot_tfidf in enumerate(matrice_tfidf):
+        # Trouver le score TF-IDF maximal et le mot correspondant
+        max_tfidf = max(mot_tfidf)
+        mot_max_tfidf = mots_uniques[mot_tfidf.index(max_tfidf)]
+
+        # Ajouter le mot et le score maximal aux listes correspondantes
+        mots_importants_tfidf.append(mot_max_tfidf)
+        scores_max_tfidf.append(max_tfidf)
+
     return mots_importants_tfidf, scores_max_tfidf
+
 
 
 

@@ -108,6 +108,7 @@ elif valeur == 2:
     mots_importants_tfidf, scores_max_tfidf = mots_plus_importants_tfidf(matrice_tfidf, mots_uniques)
 
     # Afficher les résultats
+    mots_importants_tfidf, scores_max_tfidf = mots_plus_importants_tfidf(matrice_tfidf_transposee, mots_uniques)
     print("Mots ayant le score TF-IDF le plus élevé :", mots_importants_tfidf)
     print("Scores TF-IDF correspondants :", scores_max_tfidf)
 
