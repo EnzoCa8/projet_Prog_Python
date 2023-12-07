@@ -251,30 +251,6 @@ def mots_tfidf_zero_list(matrice_tfidf, mots_uniques, file_names_cleaned):
     return mots_tfidf_zero
 
 
-'''def mots_plus_importants_tfidf(matrice_tfidf, mots_uniques):
-    mots_importants_tfidf = []
-    scores_max_tfidf = []
-
-    # Parcourir les indices de mots uniques
-    for i, mot in enumerate(mots_uniques):
-        # Vérifier si l'indice i est dans les limites de la matrice
-        if i < len(matrice_tfidf):
-            # Obtenir les scores TF-IDF pour le mot courant
-            tfidf_scores = [float(score[1]) for score in matrice_tfidf[i] if len(score) == 2]
-
-            # Vérifier si la liste des scores n'est pas vide
-            if tfidf_scores:
-                # Trouver le score TF-IDF le plus élevé
-                max_tfidf = max(tfidf_scores, default=None)
-
-                # Vérifier si max_tfidf est un nombre positif
-                if max_tfidf is not None and max_tfidf > 0:
-                    # Ajouter le mot et le score correspondant aux listes résultantes
-                    mot_max_tfidf = mot
-                    mots_importants_tfidf.append(mot_max_tfidf)
-                    scores_max_tfidf.append(max_tfidf)
-
-    return mots_importants_tfidf, scores_max_tfidf'''
 def mots_plus_importants_tfidf(matrice_tfidf, mots_uniques):
     mots_importants_tfidf = []
     scores_max_tfidf = []
@@ -290,9 +266,6 @@ def mots_plus_importants_tfidf(matrice_tfidf, mots_uniques):
         scores_max_tfidf.append(max_tfidf)
 
     return mots_importants_tfidf, scores_max_tfidf
-
-
-
 
 
 #Fonction indiquant quel mot chirac répète le plus dans ses discours
