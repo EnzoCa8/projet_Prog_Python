@@ -197,6 +197,8 @@ def transposee_matrice(matrice):
 
     return matrice_transposee
 
+def mot_unique():
+    parcourir_repertoire()
 
 
 def afficher_matrice(matrice, file_names, mots_uniques):
@@ -233,6 +235,11 @@ def afficher_matrice(matrice, file_names, mots_uniques):
 
 
     return mots_non_importants'''
+def mots_moins_importants(matrice_tfidf,mots_uniques):
+    mot_non_importants = []
+
+    #Parcourir les mots uniques
+    for mot in enumerate(mots_uniques)
 def mots_tfidf_zero_list(matrice_tfidf, mots_uniques, file_names_cleaned):
     mots_tfidf_zero = []
 
