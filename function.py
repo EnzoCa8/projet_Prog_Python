@@ -267,9 +267,6 @@ def mots_plus_importants_tfidf(matrice_tfidf, mots_uniques):
     return mots_importants_tfidf, scores_max_tfidf
 
 
-
-
-
 #Fonction indiquant quel mot chirac répète le plus dans ses discours
 def mots_plus_repetes_par_chirac(repertoire_corpus, file_names_cleaned):
     # Calculer le dictionnaire TF
