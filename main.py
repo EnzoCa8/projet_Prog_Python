@@ -59,6 +59,7 @@ resultat_dico_tf = dico_TF(repertoire_corpus, files_to_process)
 
 #IDF
 
+
 repertoire_corpus = 'cleaned'
 idf_resultats = calculer_idf(repertoire_corpus)
 #print(idf_resultats)
@@ -95,12 +96,9 @@ if valeur < 1:
 #fonctionalité 1
 # Appeler la fonction pour obtenir la liste des mots moins importants
 elif valeur == 1 :
-    #mots_non_importants = mots_moins_importants(matrice_tfidf, mots_uniques)
-    #print("Mots non importants:", mots_non_importants)
-    mots_tfidf_zero = mots_tfidf_zero_list(matrice_tfidf_transposee, mots_uniques, file_names_cleaned)
-
-    # Afficher les mots avec un score TF-IDF strictement égal à 0
-    print("Mots avec un score TF-IDF égal à zéro :", mots_tfidf_zero)
+    mots_non_importants = mots_moins_importants(matrice_tfidf, repertoire_corpus)
+    print("Mots non importants:", mots_non_importants)
+    mots_tfidf_zero = mots_tfidf_zero_list(matrice_tfidf_transposee, file_names_cleaned, repertoire_corpus)
 
 #fonctionalité 2
 # Appeler la fonction pour afficher les mots ayant le score TD-IDF le plus élevé

@@ -118,7 +118,6 @@ def dico_TF(input_dir, file_names_cleaned):
 
     return occurrence
 
-
 #IDF
 
 def calculer_idf(repertoire_corpus):
@@ -197,8 +196,6 @@ def transposee_matrice(matrice):
 
     return matrice_transposee
 
-def mot_unique():
-    parcourir_repertoire()
 
 
 def afficher_matrice(matrice, file_names, mots_uniques):
@@ -219,28 +216,63 @@ def afficher_matrice(matrice, file_names, mots_uniques):
 
 #fonctionnalité TFIDF
 
-'''def mots_moins_importants(matrice_tfidf, mots_uniques):
+def mots_moins_importants(matrice_tfidf, repertoire_corpus):
+    # Nombre total de documents dans le corpus
+    total_documents = 0
+
+    # Parcourir chaque fichier dans le répertoire du corpus
+    for nom_fichier in os.listdir(repertoire_corpus):
+        chemin_fichier = os.path.join(repertoire_corpus, nom_fichier)
+
+        # Vérifier si le chemin est un fichier
+        if os.path.isfile(chemin_fichier):
+            total_documents += 1
+
+            # Lire le contenu du fichier
+            with open(chemin_fichier, 'r', encoding='utf-8') as fichier:
+                contenu = fichier.read()
+
+                # Diviser le contenu en mots
+                mots = contenu.split()
+
+                # Identifier les mots uniques dans le fichier
+                mots_uniques = set(mots)
+
     mots_non_importants = []
 
     # Parcourir les mots uniques
     for i, mot in enumerate(mots_uniques):
 
-        # Récupérer l'indice du mot dans la matrice
-        indice_mot = [j for j, valeur in enumerate(matrice_tfidf) if valeur[0] == mot]
+        # Récupérer les indices du mot dans la matrice
+        indice_mot = [indice for indice, valeur in enumerate(matrice_tfidf) if valeur[0] == mot]
 
         # Vérifier si le TD-IDF est nul dans tous les fichiers
-        if all(matrice_tfidf[indice][1] == '0' for indice in indice_mot):
+        if all(matrice_tfidf[indice][1] == 0 for indice in indice_mot):
             mots_non_importants.append(mot)
 
+    return mots_non_importants
 
+def mots_tfidf_zero_list(matrice_tfidf,file_names_cleaned, repertoire_corpus):
+    # Nombre total de documents dans le corpus
+    total_documents = 0
 
-    return mots_non_importants'''
-def mots_moins_importants(matrice_tfidf,mots_uniques):
-    mot_non_importants = []
+    # Parcourir chaque fichier dans le répertoire du corpus
+    for nom_fichier in os.listdir(repertoire_corpus):
+        chemin_fichier = os.path.join(repertoire_corpus, nom_fichier)
 
-    #Parcourir les mots uniques
-    for mot in enumerate(mots_uniques)
-def mots_tfidf_zero_list(matrice_tfidf, mots_uniques, file_names_cleaned):
+        # Vérifier si le chemin est un fichier
+        if os.path.isfile(chemin_fichier):
+            total_documents += 1
+
+            # Lire le contenu du fichier
+            with open(chemin_fichier, 'r', encoding='utf-8') as fichier:
+                contenu = fichier.read()
+
+                # Diviser le contenu en mots
+                mots = contenu.split()
+
+                # Identifier les mots uniques dans le fichier
+                mots_uniques = set(mots)
     mots_tfidf_zero = []
 
     # Parcourir les indices de mots uniques
