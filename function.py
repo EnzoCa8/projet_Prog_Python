@@ -94,25 +94,18 @@ def parcourir_repertoire():
     # TF
 
 def dico_TF(input_dir, file_names_cleaned):
-    # Initialiser le dictionnaire des occurrences en dehors de la boucle
+    #créer dictionnaire des occurrences
     occurrence = {}
 
-    # Parcourir chaque fichier
-    for input_name in file_names_cleaned:
+    for input_name in file_names_cleaned:    #parcourir chaque fichier
         input_path = os.path.join(input_dir, input_name)
-
-        # Vérifiez si le fichier d'entrée existe
-        if os.path.isfile(input_path):
+        if os.path.isfile(input_path):              #checker si le fichier d'entrée existe
             with open(input_path, 'r', encoding='utf-8') as fichier:
                 content = fichier.read()
+                mots = content.split()                 #diviser le contenu en mots
 
-                # Diviser le contenu en mots
-                mots = content.split()
-
-                # Parcourir chaque mot et mettre à jour le dictionnaire des occurrences
-                for mot in mots:
-                    # Mettre à jour le dictionnaire des occurrences
-                    if input_name not in occurrence:
+                for mot in mots:                #parcourir chaque mot et mettre a jour le dictionnaire
+                    if input_name not in occurrence:                    # Mettre à jour le dictionnaire des occurrences
                         occurrence[input_name] = {}
                     occurrence[input_name][mot] = occurrence[input_name].get(mot, 0) + 1
 
@@ -121,19 +114,19 @@ def dico_TF(input_dir, file_names_cleaned):
 #IDF
 
 def calculer_idf(repertoire_corpus):
-    # Initialiser le dictionnaire pour stocker le nombre de documents contenant chaque mot
-    documents_contenant_mot = {}
+    #créer dictionnaire qui stocke le nombre de doc contenant chaque mot
+    doc_contenant_mot = {}
 
-    # Nombre total de documents dans le corpus
-    total_documents = 0
+    #total de documents dans le corpus
+    total_doc = 0
 
-    # Parcourir chaque fichier dans le répertoire du corpus
+    #parcourir tous les fichiers du corpus
     for nom_fichier in os.listdir(repertoire_corpus):
         chemin_fichier = os.path.join(repertoire_corpus, nom_fichier)
 
         # Vérifier si le chemin est un fichier
         if os.path.isfile(chemin_fichier):
-            total_documents += 1
+            total_doc += 1
 
             # Lire le contenu du fichier
             with open(chemin_fichier, 'r', encoding='utf-8') as fichier:
@@ -147,12 +140,12 @@ def calculer_idf(repertoire_corpus):
 
                 # Mettre à jour le dictionnaire des documents contenant chaque mot
                 for mot in mots_uniques:
-                    documents_contenant_mot[mot] = documents_contenant_mot.get(mot, 0) + 1
+                    doc_contenant_mot[mot] = doc_contenant_mot.get(mot, 0) + 1
 
     # Calculer le score IDF pour chaque mot
     idf_scores = {}
-    for mot, nb_documents_contenant in documents_contenant_mot.items():
-        idf_scores[mot] = math.log(total_documents / (nb_documents_contenant))
+    for mot, nb_documents_contenant in doc_contenant_mot.items():
+        idf_scores[mot] = math.log(total_doc / (nb_documents_contenant))
 
     return idf_scores
 
@@ -494,15 +487,34 @@ def vecteur_tfidf(question, directory):
 
 #PRODUIT SCALAIRE
 
+def vecteur_tfidf_texte(chemin_fichier, matrice_tfidf, mots_uniques):
+    # Lire le contenu du fichier
+    with open(chemin_fichier, 'r', encoding='utf-8') as fichier:
+        contenu = fichier.read()
+
+    # Diviser le contenu en mots
+    mots_texte = contenu.split()
+
+    # Initialiser le vecteur TF-IDF avec des zéros
+    vecteur_tfidf = [0.0] * len(mots_uniques)
+
+    # Remplir le vecteur TF-IDF en utilisant la matrice
+    for i, mot in enumerate(mots_uniques):
+        if mot in mots_texte:
+            # Si le mot est présent dans le fichier texte, obtenir son indice dans la matrice
+            indice_mot = mots_uniques.index(mot)
+            vecteur_tfidf[i] = matrice_tfidf[indice_mot][0]  # Utiliser la valeur TF-IDF du mot dans la matrice
+
+    return vecteur_tfidf
+
 '''marche pas je vais péter mon crâne ça renvoie 0 à chaque fois'''
 def prod_scalaire(vecteur_question, matrice):
 
     resultat = 0
-    for i in range(len(matrice)):
-        TFidf_question = float(vecteur_question[i][1])
-        TFidf_matrice = float(matrice[i][1])
-        resultat += TFidf_matrice*TFidf_question
+    for tfidf_question, tfidf_matrice in zip(vecteur_question, matrice):
+        resultat += tfidf_matrice * tfidf_question
 
     return resultat
+
 
 

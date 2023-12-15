@@ -158,6 +158,7 @@ print(vecteur_question1)
 
 #PRODUIT SCALAIRE
 
-matrice1 = matrice_tfidf_transposee
+matrice1= matrice_tfidf_transposee
 
 print(prod_scalaire(vecteur_question1, matrice1))
+
