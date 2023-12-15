@@ -76,7 +76,7 @@ files_to_process = files_to_process_input.split()
 #print("Mots uniques:", mots_uniques)
 #print("Matrice TF-IDF:")
 matrice_tfidf_transposee, mots_uniques = calculer_tf_idf_matrix(repertoire_corpus, file_names_cleaned)
-#afficher_matrice(matrice_tfidf_transposee, file_names_cleaned, mots_uniques)
+afficher_matrice(matrice_tfidf_transposee, file_names_cleaned, mots_uniques)
 
 #fonctionnalités matrice TFIDF
 
@@ -89,9 +89,13 @@ valeur = int(input("Quelles fonctionnalité voulez vous utilisez ? Taper 1 pour 
       "5 pour savoir quel président a parlé de l'écologie ou du climat en premier et 6 pour les mots communs à tous les présidents"))
 matrice_tfidf, mots_uniques = calculer_tf_idf_matrix(repertoire_corpus, file_names_cleaned)
 if valeur < 1:
-    valeur = int(input("Quelles fonctionnalité voulez vous utilisez ? Taper 1 pour la liste des mots les moins importants, 2 pour les mots ayant le score TD-IDF le plus élevé, "
-                       "3 pour le mot le plus répété par Chirac dans ses discours, 4 pour savoir quel président a le plus parlé de la nation"
-                       "5 pour savoir quel président a parlé de l'écologie ou du climat en premier et 6 pour les mots communs à tous les présidents"))
+    valeur = int(input("Quelles fonctionnalité voulez vous utilisez ?\n"
+                       " Taper 1 pour la liste des mots les moins importants,\n"
+                       " 2 pour les mots ayant le score TD-IDF le plus élevé,\n"
+                       " 3 pour le mot le plus répété par Chirac dans ses discours,\n"
+                       " 4 pour savoir quel président a le plus parlé de la nation,\n"
+                       " 5 pour savoir quel président a parlé de l'écologie ou du climat en premier\n"
+                       " 6 pour les mots communs à tous les présidents"))
 
 #fonctionalité 1
 # Appeler la fonction pour obtenir la liste des mots moins importants
@@ -148,6 +152,5 @@ print(tokenisation(question1))
 mots_en_commun = commun_question_corpus(question1)
 print(mots_en_commun)
 
-
-
-
+#VECTEUR TF-IDF
+print(vecteur_tfidf(question1, 'cleaned'))

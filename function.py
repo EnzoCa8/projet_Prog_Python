@@ -3,11 +3,11 @@ import os
 import math
 
 def list_of_files(directory, extension):
-    files_names = []
+    files_names = []    #on crée la liste des noms des fichiers
     for filename in os.listdir(directory):
-        if filename.endswith(extension):
+        if filename.endswith(extension):    #on vérifie si le nom du fichier comporte la bonne extension (.txt)
             files_names.append(filename)
-    return files_names
+    return files_names              #on retourne la liste
 
 
 def nom_pres(titre):
@@ -37,22 +37,22 @@ def prenom_pres(nom):
 # mettre en minuscule les textes
 
 def convertir_en_minuscules(input_dir, output_dir, file_names, file_names_cleaned):
-    # Assurez-vous que le répertoire de sortie existe
+    #vérifier que le répertoire de sortie existe
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
 
-    # Parcourez chaque fichier d'entrée et de sortie
+    #parcourir chaque fichier d'entrée et de sortie
     for input_name, output_name in zip(file_names, file_names_cleaned):
         input_path = os.path.join(input_dir, input_name)
         output_path = os.path.join(output_dir, output_name)
 
-        # Vérifiez si le fichier d'entrée existe
+        #vérifier si le fichier d'entrée existe
         if os.path.isfile(input_path):
             with open(input_path, 'r', encoding='utf-8') as input_file:
                 # Lire le contenu du fichier et le convertir en minuscules
                 content = input_file.read().lower()
 
-                # Écrire le contenu dans le fichier de sortie b
+                #mettre le contenu dans le fichier de sortie b
                 with open(output_path, 'w', encoding='utf-8') as output_file:
                     output_file.write(content)
 
@@ -61,18 +61,18 @@ def convertir_en_minuscules(input_dir, output_dir, file_names, file_names_cleane
 # enlever ponctuation
 
 def nettoyer_texte(texte):
-    # Supprimer la ponctuation
-    ponctuation = string.punctuation
+
+    ponctuation = string.punctuation       #on utilise la bibliothèque string pour &voir toute la ponctuation
     texte_nettoye = ''.join(caractere if caractere not in ponctuation else ' ' for caractere in texte)
-    return texte_nettoye
+    return texte_nettoye    #retourner le texte sans la ponctuation
 
 #appliquer la fonction nettoyer_texte sur un fichier
 def traiter_fichier(nom_fichier):
-    chemin_fichier = os.path.join('cleaned', nom_fichier)
+    chemin_fichier = os.path.join('cleaned', nom_fichier)   #déclarer comment on accède au fichier
 
-    with open(chemin_fichier, 'r', encoding='utf-8') as fichier:
+    with open(chemin_fichier, 'r', encoding='utf-8') as fichier:    #ouvrir le fichier en mode lecture
         texte = fichier.read()
-        texte_nettoye = nettoyer_texte(texte)
+        texte_nettoye = nettoyer_texte(texte)       #appliquer la fonction nettoyer_texte
 
     with open(chemin_fichier, 'w', encoding='utf-8') as fichier:
         fichier.write(texte_nettoye)
@@ -81,9 +81,9 @@ def traiter_fichier(nom_fichier):
 #appliquer la fonction traiter_fichier sur un repertoire
 def parcourir_repertoire():
     repertoire = 'cleaned'
-    for nom_fichier in os.listdir(repertoire):
+    for nom_fichier in os.listdir(repertoire):     #boucle pour parcourir tous les fichiers du répertoire cleaned
         if nom_fichier.endswith('.txt'):
-            traiter_fichier(nom_fichier)
+            traiter_fichier(nom_fichier)    #appliquer la fonction
 
 
 
@@ -200,16 +200,16 @@ def transposee_matrice(matrice):
 
 def afficher_matrice(matrice, file_names, mots_uniques):
     header = [""] + mots_uniques
-    print(" | ".join(header))
+    print(" ; ".join(header))
 
     # Parcourir chaque ligne de la matrice (correspondant à un fichier)
     for i, ligne in enumerate(matrice):
         # Afficher le nom du fichier
-        print(file_names[i], end=" | ")
+        print(file_names[i], end=" : ")
 
         # Afficher les valeurs TF-IDF pour chaque mot
         for valeur in ligne:
-            print(valeur, end=" | ")
+            print(valeur, end=" ; ")
 
         print()  # Passer à la ligne suivante
 
@@ -462,3 +462,35 @@ def commun_question_corpus(question):
     mots_communs = mots_question.intersection(mots_corpus)
 
     return list(mots_communs)
+
+
+#VECTEUR TF-IDF DE LA QUESTION
+def calcul_tf(question):
+    # Calculer la fréquence de chaque mot manuellement
+    mots = tokenisation(question)
+    tf = {}
+    for mot in mots:
+        tf[mot] = tf.get(mot, 0) + 1  #de façon similaire à notre fonction dico_TF
+
+    # Normaliser la fréquence en divisant par le nombre total de mots dans la question
+    total_mots = len(mots)
+    tf_normalized = {mot: freq / total_mots for mot, freq in tf.items()}
+
+    return tf_normalized
+def vecteur_tfidf(question, directory):
+    TF_mots_Question = calcul_tf(question)
+    IDF_corpus = calculer_idf(directory)
+
+    TF_IDF_Matrice2 = []
+    for clef, valeur in IDF_corpus.items():
+
+        if clef in TF_mots_Question:
+            score_TF = TF_mots_Question[clef]
+        else:
+            score_TF = 0
+
+        score_TF_IDF = valeur * score_TF
+        TF_IDF_Matrice2.append([clef, score_TF_IDF])
+
+    return TF_IDF_Matrice2
+
