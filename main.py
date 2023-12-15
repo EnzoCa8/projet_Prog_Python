@@ -62,7 +62,7 @@ resultat_dico_tf = dico_TF(repertoire_corpus, files_to_process)
 
 repertoire_corpus = 'cleaned'
 idf_resultats = calculer_idf(repertoire_corpus)
-#print(idf_resultats)
+print(idf_resultats)
 
 #matrice TF IDF
 
@@ -74,7 +74,7 @@ files_to_process = files_to_process_input.split()
 
 #matrice_tfidf_resultat, mots_uniques = calculer_tf_idf_matrix(repertoire_corpus, files_to_process)
 #print("Mots uniques:", mots_uniques)
-#print("Matrice TF-IDF:")
+#print("Matrice TF-IDF:", matrice_tfidf_resultat)
 matrice_tfidf_transposee, mots_uniques = calculer_tf_idf_matrix(repertoire_corpus, file_names_cleaned)
 afficher_matrice(matrice_tfidf_transposee, file_names_cleaned, mots_uniques)
 
@@ -145,12 +145,19 @@ elif valeur == 6:
 
 #TOKENISATION
 question1 = "Car nous en avons besoin ou pas ?"
-print(tokenisation(question1))
+#print(tokenisation(question1))
 
 #MOTS COMMUNS QUESTION/CORPUS
 
 mots_en_commun = commun_question_corpus(question1)
-print(mots_en_commun)
+#print(mots_en_commun)
 
 #VECTEUR TF-IDF
-print(vecteur_tfidf(question1, 'cleaned'))
+vecteur_question1 = vecteur_tfidf(question1, 'cleaned')
+print(vecteur_question1)
+
+#PRODUIT SCALAIRE
+
+matrice1 = matrice_tfidf_transposee
+
+print(prod_scalaire(vecteur_question1, matrice1))

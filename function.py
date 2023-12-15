@@ -179,10 +179,12 @@ def calculer_tf_idf_matrix(repertoire_corpus, file_names_cleaned):
             idf_value = idf_dict.get(mot, 0)
             matrice_tfidf[i][j] = tf_value * idf_value  # Stocker uniquement le score TF-IDF
 
-    # Calculer la transposée de la matrice sans utiliser de fonction prédéfinie
+    # Calculer la transposée de la matrice
     matrice_tfidf_transposee = transposee_matrice(matrice_tfidf)
 
     return matrice_tfidf_transposee, mots_uniques
+
+
 
 def transposee_matrice(matrice):
     nb_lignes, nb_colonnes = len(matrice), len(matrice[0])
@@ -468,29 +470,39 @@ def commun_question_corpus(question):
 def calcul_tf(question):
     # Calculer la fréquence de chaque mot manuellement
     mots = tokenisation(question)
-    tf = {}
+    tf_question = {}
     for mot in mots:
-        tf[mot] = tf.get(mot, 0) + 1  #de façon similaire à notre fonction dico_TF
+        tf_question[mot] = tf_question.get(mot, 0) + 1  #de façon similaire à notre fonction dico_TF
 
-    # Normaliser la fréquence en divisant par le nombre total de mots dans la question
-    total_mots = len(mots)
-    tf_normalized = {mot: freq / total_mots for mot, freq in tf.items()}
-
-    return tf_normalized
+    return tf_question
 def vecteur_tfidf(question, directory):
     TF_mots_Question = calcul_tf(question)
     IDF_corpus = calculer_idf(directory)
 
     TF_IDF_Matrice2 = []
-    for clef, valeur in IDF_corpus.items():
-
-        if clef in TF_mots_Question:
-            score_TF = TF_mots_Question[clef]
+    for mot, idf_score in IDF_corpus.items():
+        if mot in TF_mots_Question :
+            score_tf = TF_mots_Question.get(mot, 0)
         else:
-            score_TF = 0
+            score_tf = 0
 
-        score_TF_IDF = valeur * score_TF
-        TF_IDF_Matrice2.append([clef, score_TF_IDF])
+        score_TF_IDF = idf_score * score_tf
+        TF_IDF_Matrice2.append([mot, score_TF_IDF])
 
     return TF_IDF_Matrice2
+
+
+#PRODUIT SCALAIRE
+
+'''marche pas je vais péter mon crâne ça renvoie 0 à chaque fois'''
+def prod_scalaire(vecteur_question, matrice):
+
+    resultat = 0
+    for i in range(len(matrice)):
+        TFidf_question = float(vecteur_question[i][1])
+        TFidf_matrice = float(matrice[i][1])
+        resultat += TFidf_matrice*TFidf_question
+
+    return resultat
+
 
