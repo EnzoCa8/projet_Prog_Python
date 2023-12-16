@@ -66,7 +66,8 @@ repertoire_corpus = 'cleaned'
 idf_resultats = calculer_idf(repertoire_corpus)
 print(idf_resultats)
 
-#matrice TF IDF
+
+#matrice TF IDF*P
 
 
 repertoire_corpus = 'cleaned'
@@ -102,9 +103,9 @@ if valeur < 1:
 #fonctionalité 1
 # Appeler la fonction pour obtenir la liste des mots moins importants
 elif valeur == 1 :
-    mots_non_importants = mots_moins_importants(matrice_tfidf, repertoire_corpus)
-    print("Mots non importants:", mots_non_importants)
-    mots_tfidf_zero = mots_tfidf_zero_list(matrice_tfidf_transposee, file_names_cleaned, repertoire_corpus)
+        mots_non_importants = mots_moins_importants(matrice_tfidf, repertoire_corpus)
+        print("Mots non importants:", mots_non_importants)
+        mots_tfidf_zero = mots_tfidf_zero_list(matrice_tfidf_transposee, file_names_cleaned, repertoire_corpus)
 
 #fonctionalité 2
 # Appeler la fonction pour afficher les mots ayant le score TD-IDF le plus élevé
@@ -113,7 +114,7 @@ elif valeur == 2:
 
     # Afficher les résultats
     mots_importants_tfidf, scores_max_tfidf = mots_plus_importants_tfidf(matrice_tfidf_transposee, mots_uniques)
-    print("Mots ayant le score TF-IDF le plus élevé :", mots_importants_tfidf)
+    print("Mots ayant le score TF-IDF le plus élevé :", mots_importants_tfidf())
     print("Scores TF-IDF correspondants :", scores_max_tfidf)
 
 #fonctionalité 3
@@ -163,4 +164,6 @@ print(vecteur_question1)
 matrice1= matrice_tfidf_transposee
 
 print(prod_scalaire(vecteur_question1, matrice1))
+
+#Norme du vecteur
 

@@ -23,7 +23,7 @@ def mots_moins_importants(matrice_tfidf, repertoire_corpus):
                 # Diviser le contenu en mots
                 mots = contenu.split()
 
-                # Identifier les mots uniques dans le fichier
+                # Idenifier les mots uniques dans le fichier
                 mots_uniques = set(mots)
 
     mots_non_importants = []
