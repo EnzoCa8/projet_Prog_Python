@@ -86,3 +86,9 @@ def prod_scalaire(vecteur_question, matrice):
 
     return resultat
 
+
+
+
+
+
+

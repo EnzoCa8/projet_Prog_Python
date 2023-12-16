@@ -57,7 +57,7 @@ def mots_tfidf_zero_list(matrice_tfidf,file_names_cleaned, repertoire_corpus):
                 contenu = fichier.read()
 
                 # Diviser le contenu en mots
-                mots = contenu.spit()
+                mots = contenu.split()
 
                 # Identifier les mots uniques dans le fichier
                 mots_uniques = set(mots)

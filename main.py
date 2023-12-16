@@ -1,6 +1,7 @@
 from fonctions_de_base import*
 from TF_IDF import *
 from fonctionnalité_TF_IDF import *
+from partie2 import *
 
 
 directory = "./speeches"
@@ -162,7 +163,6 @@ print(vecteur_question1)
 #PRODUIT SCALAIRE
 
 matrice1= matrice_tfidf_transposee
-
 print(prod_scalaire(vecteur_question1, matrice1))
 
 #Norme du vecteur
