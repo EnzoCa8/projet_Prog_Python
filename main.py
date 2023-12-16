@@ -1,4 +1,6 @@
-from function import*
+from fonctions_de_base import*
+from TF_IDF import *
+from fonctionnalité_TF_IDF import *
 
 
 directory = "./speeches"

@@ -1,5 +1,5 @@
 import tkinter as tk
-from function import *
+from fonctions_de_base import *
 from main import *
 
 window = tk.Tk()

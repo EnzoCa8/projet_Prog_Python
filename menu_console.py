@@ -1,4 +1,4 @@
-from function import*
+from fonctions_de_base import*
 
 
 valeur = int(input("Quelles fonctionnalité voulez vous utilisez ? Taper 1 pour la liste des mots les moins importants, 2 pour les mots ayant le score TD-IDF le plus élevé, 3 pour le mot le plus répété par Chirac dans ses discours, 4 pour savoir quel président a le plus parlé de la nation"
