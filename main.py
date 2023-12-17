@@ -187,7 +187,7 @@ print(produit_scalaire)
 norme_vecteur_question = norme_vecteur_question(question1)
 print(f"La longueur du vecteur {vecteur_question1} est : {norme_vecteur_question}")
 
-# Norme du vecteur corrpus
+# Norme du vecteur corpus
 norme_vecteur_corpus = norme_vecteur_corpus(vecteur)
 print(f"La longueur du vecteur {vecteur_question1} est : {norme_vecteur_corpus}")
 

@@ -1,7 +1,9 @@
-from fonctions_de_base import *
 from TF_IDF import*
 from fonctionnalité_TF_IDF import *
 import math
+
+'''Ce fichier comporte toutes les fonctionnalités de la partie 2 du projet telles que la tokenisation 
+d'une question ou la création de son vecteur TF-IDF'''
 
 #PARTIE 2
 
@@ -91,7 +93,7 @@ def prod_scalaire(vecteur_question, matrice):
 def norme_vecteur_question(vecteur_question1):
     # On calcule la longueur (norme euclidienne) du vecteur question.
 
-    somme_carres = somme_carres = sum(componente**2 for componente in vecteur_question1)
+    somme_carres = sum(componente**2 for componente in vecteur_question1)
     longueur = math.sqrt(somme_carres)
     return longueur
 
