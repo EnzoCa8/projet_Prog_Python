@@ -88,23 +88,26 @@ def prod_scalaire(vecteur_question, matrice):
     return resultat
 
 ## Norme vecteur question
-def norme_vecteur_question(vecteur_tfidf):
-    # On calcule la longueur (norme euclidienne) d'un vecteur.
+def norme_vecteur_question(vecteur_question1):
+    # On calcule la longueur (norme euclidienne) du vecteur question.
 
-    somme_carres = somme_carres = sum(componente**2 for componente in vecteur_tfidf)
+    somme_carres = somme_carres = sum(componente**2 for componente in vecteur_question1)
     longueur = math.sqrt(somme_carres)
     return longueur
 
 
 ## Norme vecteur corpus
 
-'''def norme_vecteur_corpus():
-    # On calcule la longueur (norme euclidienne) d'un vecteur.
+def norme_vecteur_corpus():
+    # On calcule la longueur (norme euclidienne) du vecteur corpus.
 
-    somme_carres = sum(x**2 for x in vecteur_tfidf_texte())
+    somme_carres = sum(componente**2 for componente in vecteur_tfidf_texte())
     longueur = math.sqrt(somme_carres)
-    return longueur'''
+    return longueur
 
+def calcul_similarity(norme_vecteur_question, norme_vecteur_corpus, produit_scalaire):
+    similarity = produit_scalaire / norme_vecteur_question * norme_vecteur_corpus
+    return similarity
 
 
 

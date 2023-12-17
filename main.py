@@ -179,9 +179,17 @@ print(vecteur_question1)
 #PRODUIT SCALAIRE
 
 matrice1= matrice_tfidf_transposee
-print(prod_scalaire(vecteur_question1, matrice1))
+produit_scalaire = prod_scalaire(vecteur_question1, matrice1)
+print(produit_scalaire)
 
 #Norme du vecteur question
 
-resultat = norme_vecteur_question(vecteur_question1)
-print(f"La longueur du vecteur {vecteur_question1} est : {resultat}")
+norme_vecteur_question = norme_vecteur_question(question1)
+print(f"La longueur du vecteur {vecteur_question1} est : {norme_vecteur_question}")
+
+# Norme du vecteur corrpus
+norme_vecteur_corpus = norme_vecteur_corpus(vecteur)
+print(f"La longueur du vecteur {vecteur_question1} est : {norme_vecteur_corpus}")
+
+# Calule similarity
+similary = calcul_similarity()
