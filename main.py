@@ -163,13 +163,14 @@ elif valeur == 6:
 #fonctionnalité PARTIE 2
 
 #TOKENISATION
-question1 = "Car nous en avons besoin ou pas ?"
+question1 = str(input("Posez une question :"))
 #print(tokenisation(question1))
+#print(calcul_tf(question1))
 
 #MOTS COMMUNS QUESTION/CORPUS
 
 mots_en_commun = commun_question_corpus(question1)
-#print(mots_en_commun)
+print(mots_en_commun)
 
 #VECTEUR TF-IDF
 vecteur_question1 = vecteur_tfidf(question1, 'cleaned')
@@ -177,8 +178,10 @@ print(vecteur_question1)
 
 #PRODUIT SCALAIRE
 
-#matrice1= matrice_tfidf_transposee
-#print(prod_scalaire(vecteur_question1, matrice1))
+matrice1= matrice_tfidf_transposee
+print(prod_scalaire(vecteur_question1, matrice1))
 
-#Norme du vecteur
+#Norme du vecteur question
 
+resultat = norme_vecteur_question(vecteur_question1)
+print(f"La longueur du vecteur {vecteur_question1} est : {resultat}")

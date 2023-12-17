@@ -1,6 +1,7 @@
 from fonctions_de_base import *
 from TF_IDF import*
 from fonctionnalité_TF_IDF import *
+import math
 
 #PARTIE 2
 
@@ -45,7 +46,7 @@ def vecteur_tfidf(question, directory):
     TF_IDF_Matrice2 = []
     for mot, idf_score in IDF_corpus.items():
         if mot in TF_mots_Question :
-            score_tf = TF_mots_Question.get(mot, 0)
+            score_tf = TF_mots_Question.get(mot, 1)
         else:
             score_tf = 0
 
@@ -86,6 +87,23 @@ def prod_scalaire(vecteur_question, matrice):
 
     return resultat
 
+## Norme vecteur question
+def norme_vecteur_question(vecteur_tfidf):
+    # On calcule la longueur (norme euclidienne) d'un vecteur.
+
+    somme_carres = somme_carres = sum(componente**2 for componente in vecteur_tfidf)
+    longueur = math.sqrt(somme_carres)
+    return longueur
+
+
+## Norme vecteur corpus
+
+'''def norme_vecteur_corpus():
+    # On calcule la longueur (norme euclidienne) d'un vecteur.
+
+    somme_carres = sum(x**2 for x in vecteur_tfidf_texte())
+    longueur = math.sqrt(somme_carres)
+    return longueur'''
 
 
 
