@@ -1,5 +1,8 @@
 import os
 import math
+from fonctionnalité_TF_IDF import *
+from fonctions_de_base import *
+
 
 
 ## Début Matrice TF-IDF ##
@@ -106,17 +109,17 @@ def transposee_matrice(matrice):
 
 
 
-def afficher_matrice(matrice, file_names, mots_uniques):
+def afficher_matrice(matrice_tfif, file_names, mots_uniques):
     header = [""] + mots_uniques
     print(" ; ".join(header))
 
     # Parcourir chaque ligne de la matrice (correspondant à un fichier)
-    for i, ligne in enumerate(matrice):
+    for i, ligne in enumerate(matrice_tfif):
         # Afficher le nom du fichier
         print(file_names[i], end=" : ")
 
         # Afficher les valeurs TF-IDF pour chaque mot
         for valeur in ligne:
-            print(valeur, end=" ; ")
+            print(round(valeur, 2), end=" ; ")
 
         print()  # Passer à la ligne suivante

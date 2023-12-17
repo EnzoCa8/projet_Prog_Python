@@ -84,3 +84,33 @@ def parcourir_repertoire():
     for nom_fichier in os.listdir(repertoire):     #boucle pour parcourir tous les fichiers du répertoire cleaned
         if nom_fichier.endswith('.txt'):
             traiter_fichier(nom_fichier)    #appliquer la fonction
+
+
+def mots_unique():
+    mots_uniques = set()
+
+    # Parcourir tous les fichiers dans le répertoire
+    for fichier_nom in os.listdir('cleaned'):
+        if fichier_nom.endswith(".txt"):  # Assurez-vous que le fichier est un fichier texte
+            chemin_fichier = os.path.join("cleaned", fichier_nom)
+
+            # Lire le contenu du fichier
+            with open(chemin_fichier, 'r', encoding='utf-8') as fichier:
+                contenu = fichier.read()
+
+            # Supprimer la ponctuation et diviser le contenu en mots
+            mots = contenu.translate(str.maketrans("", "", string.punctuation)).lower().split()
+
+            # Ajouter les mots à l'ensemble pour garantir l'unicité
+            mots_uniques.update(mots)
+
+    # Convertir l'ensemble en liste et la retourner
+    return list(mots_uniques)
+
+
+if __name__ == '__main__':
+    repertoire_cleaned = 'cleaned'
+    mots_uniques = mots_unique()
+
+    print("Liste de mots uniques dans le répertoire:")
+    print(mots_uniques)
