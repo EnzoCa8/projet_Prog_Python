@@ -166,6 +166,7 @@ elif valeur == 6:
 question1 = str(input("Posez une question :"))
 #print(tokenisation(question1))
 #print(calcul_tf(question1))
+matrice1= matrice_tfidf_transposee
 
 #MOTS COMMUNS QUESTION/CORPUS
 
@@ -175,21 +176,22 @@ print(mots_en_commun)
 #VECTEUR TF-IDF
 vecteur_question1 = vecteur_tfidf(question1, 'cleaned')
 print(vecteur_question1)
+vecteur_texte = vecteur_tfidf_texte('cleaned', matrice1, mots_uniques)
 
 #PRODUIT SCALAIRE
 
-matrice1= matrice_tfidf_transposee
+
 produit_scalaire = prod_scalaire(vecteur_question1, matrice1)
 print(produit_scalaire)
 
 #Norme du vecteur question
 
 norme_vecteur_question = norme_vecteur_question(question1)
-print(f"La longueur du vecteur {vecteur_question1} est : {norme_vecteur_question}")
+print("La longueur du vecteur", vecteur_question1, "est :", norme_vecteur_question)
 
 # Norme du vecteur corpus
-norme_vecteur_corpus = norme_vecteur_corpus(vecteur)
-print(f"La longueur du vecteur {vecteur_question1} est : {norme_vecteur_corpus}")
+norme_texte = norme_vecteur_texte(vecteur_texte)
+print("La longueur du vecteur", vecteur_texte, "est :", norme_vecteur_texte)
 
-# Calule similarity
-similary = calcul_similarity()
+#calcul de similarité
+similarite = calcul_similarity()

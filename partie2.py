@@ -80,7 +80,7 @@ def prod_scalaire(vecteur_question, matrice):   #prend en paramètres le vecteur
                                                 # et en renvoie le produit scalaire
     resultat = 0
     for tfidf_question, tfidf_matrice in zip(vecteur_question, matrice):
-        resultat += tfidf_matrice * tfidf_question
+        resultat += float(tfidf_matrice) * float(tfidf_question)
 
     return resultat
 
@@ -94,7 +94,7 @@ def norme_vecteur_question(vecteur_question1): #calcule la longueur (norme eucli
 
 ## Norme vecteur corpus
 
-def norme_vecteur_corpus():  #calcule la longueur (norme euclidienne) du vecteur corpus.
+def norme_vecteur_texte():  #calcule la longueur (norme euclidienne) du vecteur corpus.
 
     somme_carres = sum(componente**2 for componente in vecteur_tfidf_texte('cleaned', vecteur, mots_uniques))
     longueur = math.sqrt(somme_carres)
