@@ -56,7 +56,7 @@ def convertir_en_minuscules(input_dir, output_dir, file_names, file_names_cleane
 
 # enlever ponctuation
 
-def nettoyer_texte(texte):  #fonction qui prend en paramèetre le texte d'un président et le renvoie sans ponctuation
+def nettoyer_texte(texte):  #fonction qui prend en paramètre le texte d'un président et le renvoie sans ponctuation
 
     ponctuation = string.punctuation       #on utilise la bibliothèque string pour &voir toute la ponctuation
     texte_nettoye = ''.join(caractere if caractere not in ponctuation else ' ' for caractere in texte)
@@ -92,10 +92,3 @@ def mots_unique():
             mots = contenu.translate(str.maketrans("", "", string.punctuation)).lower().split()     #supprimer la ponctuation et diviser le contenu en mots
             mots_uniques.update(mots)
     return list(mots_uniques)
-
-if __name__ == '__main__':
-    repertoire_cleaned = 'cleaned'
-    mots_uniques = mots_unique()
-
-    print("Liste de mots uniques dans le répertoire:")
-    print(mots_uniques)

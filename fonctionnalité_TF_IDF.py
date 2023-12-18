@@ -1,4 +1,7 @@
 from TF_IDF import *
+from fonctions_de_base import *
+
+
 
 '''Sont ici, les fonctionnalités se servant d'utiliser la matrice TF-IDF précédemment réalisée'''
 
@@ -7,17 +10,12 @@ from TF_IDF import *
 def mots_moins_importants(matrice_tfidf, repertoire_corpus): #fonction qui prend en paramètre la matrice et le
                                                              #répertoire pour renvoyer les mots avec le score TF-IDF le moins élevé
     mots_pas_importants = []
-    scores_mini_tfidf = []
-
-    for i, mot_tfidf in enumerate(matrice_tfidf):   #parcourir chaque colonne de la matrice
-        mini_tfidf = min(mot_tfidf)      #trouver le score TF-IDF mminimal et le mot correspondant
-        mot_mini_tfidf = mots_unique()[mot_tfidf.index(mini_tfidf)]
-        mots_pas_importants.append((mot_mini_tfidf))    #ajouter le mot et le score minimal aux listes correspondantes
-        scores_mini_tfidf.append(mini_tfidf)
-
-    return mots_pas_importants, scores_mini_tfidf
-
-
+    score_idf = calculer_idf(repertoire_corpus)
+    mots_uniques = mots_unique()
+    for i in enumerate(mots_uniques):
+        if mots_uniques in mots_uniques and score_idf == 0.0:
+            mots_pas_importants.append()
+    return mots_pas_importants
 def mots_plus_importants_tfidf(matrice_tfidf, mots_uniques):    #même principe qu'avant mais avec les scores les plus élevés
     mots_importants_tfidf = []
     scores_max_tfidf = []
@@ -89,44 +87,25 @@ def president_avec_plus_parle_de_nation(repertoire_corpus, file_names_cleaned):#
 
 
 #fonction quel président a parlé en premier du climat et/ou de l'écologie
+def président_qui_ont_parlé_climat_ou_ecologie(repertoire_corpus, file_names_cleaned):
+    tf_dict = dico_TF(repertoire_corpus, file_names_cleaned)
+    presidents = {
+        "Chirac": ["Nomination_Chirac1_cleaned.txt", "Nomination_Chirac2_cleaned.txt"],
+        "Giscard d'Estaing": ["Nomination_Giscard dEstaing_cleaned.txt"],
+        "Hollande": ["Nomination_Hollande_cleaned.txt"],
+        "Macron": ["Nomination_Macron_cleaned.txt"],
+        "Mitterrand": ["Nomination_Mitterrand1_cleaned.txt", "Nomination_Mitterrand2_cleaned.txt"],
+        "Sarkozy": ["Nomination_Sarkozy_cleaned.txt"]
+    }
+    presidents_ecologie = []
 
-def president_plus_tot_a_parler_climat_ecologie(matrice_tfidf, mots_uniques, file_names_cleaned):
-#prend en paramètres la matrice, les mots, et la liste de fichiers pour renvoyer le nom du président qui a
-#parlé le plus tôt de l'écologie si il y en a un
-    premier_parler = {}
+    for president, fichiers in presidents.items():
+        compte_ecologie = 0
+        for fichier in fichiers:
+            if fichier in tf_dict:
+                # En supposant que dico_TF renvoie un dictionnaire avec les fréquences des termes
+                compte_ecologie += tf_dict[fichier].get("écologie", 0) + tf_dict[fichier].get("climat", 0) + tf_dict[fichier].get("climatique",0)
+        if compte_ecologie > 0:
+            presidents_ecologie.append(president)
 
-    for j, file_name in enumerate(file_names_cleaned):
-        for i, mot in enumerate(mots_uniques):
-            if i < len(matrice_tfidf) and j < len(matrice_tfidf[i]):#verifie si les indices sont dans les limites de la matrice
-                mot_tfidf = matrice_tfidf[i][j]     #extraire le mot et sa valeur TF-IDF de la matrice
-                if any(keyword in mot.lower() for keyword in ["climat", "écologie"]):   #verifie si le mot concerne le climat ou l'écologie
-                    if file_name not in premier_parler:    #verifie si le président est déjà dans le dictionnaire
-                        premier_parler[file_name] = {"mot": mot, "valeur_tfidf": float(mot_tfidf[1])}
-
-    if premier_parler:  #verifie si des présidents ont été trouvés
-        premier_president = min(premier_parler, key=lambda x: premier_parler[x]["valeur_tfidf"])
-        #
-        print("Le président qui a parlé en premier du climat ou de l'écologie est", premier_president," avec le mot", premier_parler[premier_president]['mot'], " et une valeur TF-IDF de", premier_parler[premier_president]['valeur_tfidf'])
-        return premier_president
-    else:
-        print("Aucun président n'a été trouvé parlant du climat ou de l'écologie dans la matrice TD-IDF.")
-        return None
-
-
-
-#fonction des mots communs à tous les présidents
-
-def mots_communs_tous_presidents(repertoire):    #prend en paramètre le répertoire et renvoie une liste des
-                                                 # mots communs à tous les présidents
-    mots_par_president = []
-
-    for file_name in list_of_files(repertoire, '.txt'):
-        with open(os.path.join(repertoire, file_name), 'r', encoding='utf-8') as file:
-            mots_president = set(file.read().split())
-            mots_par_president.append(mots_president)
-
-    mots_communs = set.intersection(*mots_par_president)
-
-    print("Mots communs à tous les présidents :", mots_communs)
-
-    return mots_communs
+    print("Les présidents qui ont mentionné le mot climat ou écologie sont :", presidents_ecologie)

@@ -90,13 +90,12 @@ matrice_tfidf, mots_uniques = calculer_tf_idf_matrix(repertoire_corpus, file_nam
 
 #fonctionnalités matrice TFIDF
 
-valeur = int(input("Quelles fonctionnalité voulez vous utilisez ? Tapez : \n"
-                   " 1 pour la liste des mots les moins importants,\n"
-                   " 2 pour les mots ayant le score TD-IDF le plus élevé,\n"
-                   " 3 pour le mot le plus répété par Chirac dans ses discours,\n"
-                   " 4 pour savoir quel président a le plus parlé de la nation,\,"
-                   "5 pour savoir quel président a parlé de l'écologie ou du climat en premier, \n"
-                   " 6 pour les mots communs à tous les présidents"))
+valeur = int(input("Quelles fonctionnalité voulez vous utilisez ?\n"
+                       " Taper 1 pour la liste des mots les moins importants,\n"
+                       " 2 pour les mots ayant le score TD-IDF le plus élevé,\n"
+                       " 3 pour le mot le plus répété par Chirac dans ses discours,\n"
+                       " 4 pour savoir quel président a le plus parlé de la nation,\n"
+                       " 5 pour savoir quel président a parlé de l'écologie ou du climat\n"))
 matrice_tfidf, mots_uniques = calculer_tf_idf_matrix(repertoire_corpus, file_names_cleaned)
 if valeur < 1:
     valeur = int(input("Quelles fonctionnalité voulez vous utilisez ?\n"
@@ -104,8 +103,7 @@ if valeur < 1:
                        " 2 pour les mots ayant le score TD-IDF le plus élevé,\n"
                        " 3 pour le mot le plus répété par Chirac dans ses discours,\n"
                        " 4 pour savoir quel président a le plus parlé de la nation,\n"
-                       " 5 pour savoir quel président a parlé de l'écologie ou du climat en premier\n"
-                       " 6 pour les mots communs à tous les présidents"))
+                       " 5 pour savoir quel président a parlé de l'écologie ou du climat\n"))
 
 #fonctionalité 1
 # Appeler la fonction pour obtenir la liste des mots moins importants
@@ -113,7 +111,7 @@ elif valeur == 1 :
     mots_pas_importants, scores_mini_tfidf = mots_moins_importants(matrice_tfidf, mots_uniques)
 
     # Afficher les résultats
-    mots_pas_importants, scores_mini_tfidf = mots_moins_importants(matrice_tfidf_transposee, mots_uniques)
+    mots_pas_importants = mots_moins_importants(matrice_tfidf_transposee, mots_uniques)
     print("Mots ayant le score TF-IDF le moins élevé :", mots_pas_importants)
     print(len(mots_pas_importants))
 
@@ -142,21 +140,11 @@ elif valeur == 4:
 
 
 ##5eme fonctionnalité
-# Utilisation de la fonction indiquant quel président a parlé de l'écologie ou du climat en premier
+# président qui ont parlé au moins une foie de climat ou d'écologie
 elif valeur == 5:
-    matrice_tfidf, mots_uniques = calculer_tf_idf_matrix(repertoire_corpus, file_names_cleaned)
-    president_plus_tot_a_parler_climat_ecologie(matrice_tfidf, mots_uniques, file_names_cleaned)
+    président_qui_ont_parlé_climat_ou_ecologie(repertoire_corpus, file_names_cleaned)
 
 
-##6ème fonctionnalité
-# fonction des mots communs à tous les présidents
-elif valeur == 6:
-    file_names_cleaned = ["Nomination_Chirac1_cleaned.txt", "Nomination_Chirac2_cleaned.txt",
-                          "Nomination_Giscard dEstaing_cleaned.txt",
-                          "Nomination_Hollande_cleaned.txt", "Nomination_Macron_cleaned.txt",
-                          "Nomination_Mitterrand1_cleaned.txt", "Nomination_Mitterrand2_cleaned.txt",
-                          "Nomination_Sarkozy_cleaned.txt"]
-    mots_communs_tous_presidents('./cleaned')
 
 
 
@@ -174,7 +162,7 @@ print(mots_en_commun)
 
 print(mots_uniques)
 
-'''''#VECTEUR TF-IDF
+''''#VECTEUR TF-IDF
 vecteur_question1 = vecteur_tfidf(question1, 'cleaned')
 print(vecteur_question1)
 
