@@ -40,15 +40,14 @@ def calculer_idf(repertoire_corpus):    #fonction qui calcule le score IDF du r�
 
             with open(chemin_fichier, 'r', encoding='utf-8') as fichier:
                 contenu = fichier.read()
-
                 mots = contenu.split()
-
                 mots_uniques = set(mots) #crée un set des mots afin de n'avoir aucun doublons
-
+                
                 for mot in mots_uniques:
                     doc_contenant_mot[mot] = doc_contenant_mot.get(mot, 0) + 1
 
     idf_scores = {}     #calcul du score IDF pour chaque mot
+    
     for mot, nb_documents_contenant in doc_contenant_mot.items():
         idf_scores[mot] = math.log(total_doc / (nb_documents_contenant))
 
@@ -60,11 +59,8 @@ def calculer_idf(repertoire_corpus):    #fonction qui calcule le score IDF du r�
 def calculer_tf_idf_matrix(repertoire_corpus, file_names_cleaned):  #crée la matrice TF_IDF du répertoire mis en paramèetre avec la liste des fichiers à traiter
 
     tf_dict = dico_TF(repertoire_corpus, file_names_cleaned)    #calcul le dictionnaire TF
-
     idf_dict = calculer_idf(repertoire_corpus)      #calcul du dictionnaire IDF
-
     mots_uniques = list(set(tf_dict.keys()).union(idf_dict.keys()))     #converti le set de mots en liste qui ne contient donc pas de doublosn
-
     matrice_tfidf = [[0.0] * len(file_names_cleaned) for _ in range(len(mots_uniques))]    #initialise la matrice TF-IDF avec des zéros
 
     for i, mot in enumerate(mots_uniques):      #remplissage la matrice TF-IDF en multipliant les valeurs correspondantes de TF et IDF
@@ -87,6 +83,7 @@ def transposee_matrice(matrice):    #fonction qui prend en paramètre la matrice
         nouvelle_colonne = []
         for i in range(nb_lignes):
             nouvelle_colonne.append(matrice[i][j])
+        
         matrice_transposee.append(nouvelle_colonne)
 
     return matrice_transposee
