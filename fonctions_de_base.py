@@ -63,7 +63,7 @@ def nettoyer_texte(texte):  #fonction qui prend en paramètre le texte d'un pré
     return texte_nettoye    #retourner le texte sans la ponctuation
 
 def traiter_fichier(nom_fichier):   #applique la fonction nettoyer_texte sur un fichier pris en paramètre
-    chemin_fichier = os.path.join('cleaned', nom_fichier)   #déclarer comment on accède au fichier
+    chemin_fichier= os.path.join('cleaned', nom_fichier)   #déclarer comment on accède au fichier
 
     with open(chemin_fichier, 'r', encoding='utf-8') as fichier:    #ouvrir le fichier en mode lecture
         texte = fichier.read()
@@ -83,7 +83,7 @@ def parcourir_repertoire(): #appliquer la fonction traiter_fichier sur un repert
 def mots_unique():
     mots_uniques = set()
 
-    for fichier_nom in os.listdir('cleaned'):
+    for fichier_nom in os.listdir('cleaned'):            #parcourir les fichiers dans le corpus
         if fichier_nom.endswith(".txt"):
             chemin_fichier = os.path.join("cleaned", fichier_nom)
             with open(chemin_fichier, 'r', encoding='utf-8') as fichier:

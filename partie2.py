@@ -53,28 +53,50 @@ def vecteur_tfidf(question, repertoire): #prend une question et un repertoire po
 
 
 # vecteur corpus texte
-def vecteur_tfidf_texte(chemin_fichier, matrice_tfidf, mots_uniques): #prend le repertoire, la matrice et les mots
-                                                                    # unique pour renvoyer le vecteur TF-IDF d'un texte
+def vecteur_tfidf_texte(chemin_fichier, matrice_tfidf, mots_uniques, files_name):
+    chemin_fichier = os.path.join('cleaned', files_name)
+
     with open(chemin_fichier, 'r', encoding='utf-8') as fichier:
         contenu = fichier.read()
 
     mots_texte = contenu.split()
 
+    # Créer un dictionnaire pour mapper les mots à leurs indices dans mots_uniques
+    indice_mot_map = {mot: indice for indice, mot in enumerate(mots_uniques)}
+
     vecteur_tfidf = [0.0] * len(mots_uniques)
 
-    for i, mot in enumerate(mots_uniques) :   #remplir le vecteur TF-IDF en utilisant la matrice
-        if mot in mots_texte:
-            indice_mot = mots_uniques.index(mot)    #si mot est présent dans le fichier, obtenir son indice dans la matrice
-            vecteur_tfidf[i] = matrice_tfidf[indice_mot][0]
+    for mot in mots_texte:
+        # Utiliser le dictionnaire pour obtenir l'indice du mot
+        indice_mot = indice_mot_map.get(mot, None)
+
+        # Vérifier que l'indice est dans la plage de la liste matrice_tfidf
+        if indice_mot is not None and 0 <= indice_mot < len(matrice_tfidf):
+            score_tfidf = matrice_tfidf[indice_mot][0]
+            vecteur_tfidf[indice_mot] = score_tfidf
 
     return vecteur_tfidf
 
 # produit scalaire
-def prod_scalaire(vecteur_question, matrice):   #prend en paramètres le vecteur de la question et d'un texte
+
+def produit_vectoriel(vecteur_question1, vecteurs_corpus):
+    # Extraire les vecteurs TF-IDF du tuple (mot, score) dans une liste
+    vecteurs_tfidf = [score for mot, score in vecteurs_corpus]
+
+    # Calculer le produit vectoriel
+    resultat = sum(x * y for x, y in zip(vecteur_question1, vecteurs_corpus))
+
+    return resultat
+
+
+
+
+
+'''def prod_scalaire(vecteur_question, matrice,vecteur_tfidf_texte):   #prend en paramètres le vecteur de la question et d'un texte
                                                 # et en renvoie le produit scalaire
     resultat = 0
     for tfidf_question, tfidf_matrice in zip(vecteur_question, matrice):
-        resultat += float(tfidf_matrice) * float(tfidf_question)
+        resultat += float(tfidf_matrice[i]) * float(tfidf_question[i])
 
     return resultat
 
@@ -97,4 +119,4 @@ def norme_vecteur_texte():  #calcule la longueur (norme euclidienne) du vecteur 
 def calcul_similarite(norme_vecteur_question, norme_vecteur_corpus, produit_scalaire):
     #prend la norme des vecteurs question et corpus ainsi que leur produit scalaire pour en renvoyer l'angle de similarité
     similarite = produit_scalaire / norme_vecteur_question * norme_vecteur_corpus
-    return similarite
+    return similarite'''

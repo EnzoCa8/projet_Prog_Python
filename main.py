@@ -152,7 +152,8 @@ elif valeur == 5:
 #fonctionnalité PARTIE 2
 
 #TOKENISATION
-question1 = str(input("Posez une question :"))
+question1 = "Le climat est-il important"
+print(question1)
 #print(tokenisation(question1))
 #print(calcul_tf(question1))
 #matrice1= matrice_tfidf_transposee
@@ -166,9 +167,18 @@ print(mots_en_commun)
 vecteur_question1 = vecteur_tfidf(question1, 'cleaned')
 print(vecteur_question1)
 
-'''#PRODUIT SCALAIRE
 
-matrice1= matrice_tfidf_transposee
+vecteur_corpus = vecteur_tfidf_texte('cleaned',matrice_tfidf,mots_uniques, file_names_cleaned[0])
+print(vecteur_corpus)
+print(len(vecteur_corpus))
+
+#PRODUIT SCALAIRE
+
+
+produit_scalaire = produit_vectoriel(vecteur_question1,vecteur_corpus)
+print(produit_scalaire)
+
+'''matrice1= matrice_tfidf_transposee
 produit_scalaire = prod_scalaire(vecteur_question1, matrice1)
 print(produit_scalaire)
 
