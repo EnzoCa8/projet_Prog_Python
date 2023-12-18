@@ -93,7 +93,6 @@ def mots_unique():
             mots_uniques.update(mots)
     return list(mots_uniques)
 
-
 if __name__ == '__main__':
     repertoire_cleaned = 'cleaned'
     mots_uniques = mots_unique()

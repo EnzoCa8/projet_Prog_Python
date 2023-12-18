@@ -172,7 +172,9 @@ question1 = str(input("Posez une question :"))
 mots_en_commun = commun_question_corpus(question1)
 print(mots_en_commun)
 
-#VECTEUR TF-IDF
+print(mots_uniques)
+
+'''''#VECTEUR TF-IDF
 vecteur_question1 = vecteur_tfidf(question1, 'cleaned')
 print(vecteur_question1)
 
@@ -192,4 +194,4 @@ norme_vecteur_corpus = norme_vecteur_corpus(vecteur)
 print(f"La longueur du vecteur {vecteur_question1} est : {norme_vecteur_corpus}")
 
 # Calule similarity
-similary = calcul_similarity()
+similary = calcul_similarity()'''
