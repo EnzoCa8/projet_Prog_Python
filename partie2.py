@@ -40,9 +40,9 @@ def calcul_tf(question):    #prend en paramètre une question et renvoie le scor
         tf_question[mot] = tf_question.get(mot, 0) + 1  #de façon similaire à notre fonction dico_TF
 
     return tf_question
-def vecteur_tfidf(question, directory): #prend une question et un repertoire pour en renvoyer le vecteur TF-IDF
+def vecteur_tfidf(question, repertoire): #prend une question et un repertoire pour en renvoyer le vecteur TF-IDF
     TF_mots_Question = calcul_tf(question)
-    IDF_corpus = calculer_idf(directory)
+    IDF_corpus = calculer_idf(repertoire)
 
     TF_IDF_Matrice2 = []
     for mot, idf_score in IDF_corpus.items():
