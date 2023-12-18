@@ -69,12 +69,12 @@ def vecteur_tfidf_texte(chemin_fichier, matrice_tfidf, mots_uniques): #prend le 
 
     return vecteur_tfidf
 
-'''marche pas je vais péter mon crâne ça renvoie 0 à chaque fois'''
+
 def prod_scalaire(vecteur_question, matrice):   #prend en paramètres le vecteur de la question et d'un texte
                                                 # et en renvoie le produit scalaire
     resultat = 0
     for tfidf_question, tfidf_matrice in zip(vecteur_question, matrice):
-        resultat += tfidf_matrice * tfidf_question
+        resultat += float(tfidf_matrice) * float(tfidf_question)
 
     return resultat
 
@@ -88,17 +88,17 @@ def norme_vecteur_question(vecteur_question1): #calcule la longueur (norme eucli
 
 ## Norme vecteur corpus
 
-def norme_vecteur_corpus():  #calcule la longueur (norme euclidienne) du vecteur corpus.
+def norme_vecteur_texte():  #calcule la longueur (norme euclidienne) du vecteur corpus.
 
-    somme_carres = sum(componente**2 for componente in vecteur_tfidf_texte('cleaned', vecteur, mots_uniques))
+    somme_carres = sum(componente**2 for componente in vecteur_tfidf_texte('cleaned', vecteur_texte, mots_uniques))
     longueur = math.sqrt(somme_carres)
     return longueur
 
-def calcul_similarity(norme_vecteur_question, norme_vecteur_corpus, produit_scalaire):
+def calcul_similarite(norme_vecteur_question, norme_vecteur_corpus, produit_scalaire):
     #prend la norme des vecteurs question et corpus ainsi que leur produit scalaire pour en renvoyer l'angle de similarité
 
-    similarity = produit_scalaire / norme_vecteur_question * norme_vecteur_corpus
-    return similarity
+    similarite = produit_scalaire / norme_vecteur_question * norme_vecteur_corpus
+    return similarite
 
 
 

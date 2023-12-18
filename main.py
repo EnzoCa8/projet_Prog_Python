@@ -154,6 +154,7 @@ elif valeur == 5:
 question1 = str(input("Posez une question :"))
 #print(tokenisation(question1))
 #print(calcul_tf(question1))
+matrice1= matrice_tfidf_transposee
 
 #MOTS COMMUNS QUESTION/CORPUS
 
