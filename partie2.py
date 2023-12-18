@@ -19,15 +19,9 @@ def commun_question_corpus(question):   #prend en paramètre une question et ren
                                         # à la question et au corpus
     corpus = "cleaned"
     mots_corpus = set()         #sortir les mots uniques de tous les fichiers
-    for fichier in os.listdir(corpus):
-        corpus = os.path.join(corpus, fichier)
-        if os.path.isfile(corpus):
-            with open(corpus, "r", encoding="utf-8") as f:
-                contenu = f.read()
-                mots_fichier = set(contenu.split())
-                mots_corpus.update((mots_fichier))
+    mots_uniques = mots_unique()
     mots_question = set(tokenisation(question))
-    mots_communs = mots_question.intersection(mots_corpus)
+    mots_communs = mots_question.intersection(mots_uniques)
 
     return list(mots_communs)
 

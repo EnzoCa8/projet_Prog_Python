@@ -180,7 +180,7 @@ vecteur_texte = vecteur_tfidf_texte('cleaned', matrice1, mots_uniques)
 
 #PRODUIT SCALAIRE
 
-
+matrice1= matrice_tfidf_transposee
 produit_scalaire = prod_scalaire(vecteur_question1, matrice1)
 print(produit_scalaire)
 
