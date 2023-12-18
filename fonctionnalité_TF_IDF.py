@@ -7,15 +7,16 @@ from fonctions_de_base import *
 
 #fonctionnalité TFIDF
 
-def mots_moins_importants(matrice_tfidf, repertoire_corpus): #fonction qui prend en paramètre la matrice et le
-                                                             #répertoire pour renvoyer les mots avec le score TF-IDF le moins élevé
-    mots_pas_importants = []
-    score_idf = calculer_idf(repertoire_corpus)
-    mots_uniques = mots_unique()
-    for i in enumerate(mots_uniques):
-        if mots_uniques in mots_uniques and score_idf == 0.0:
-            mots_pas_importants.append()
-    return mots_pas_importants
+def mots_pas_importants(matrice_tfidf, repertoire_corpus):
+    mots_non_importants = []
+    for i, mot_tfidf in enumerate(matrice_tfidf):
+        if mot_tfidf == 0.0:
+            mots_non_importants.append(mot_tfidf)
+
+    return mots_non_importants
+
+
+
 def mots_plus_importants_tfidf(matrice_tfidf, mots_uniques):    #même principe qu'avant mais avec les scores les plus élevés
     mots_importants_tfidf = []
     scores_max_tfidf = []

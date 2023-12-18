@@ -108,10 +108,10 @@ if valeur < 1:
 #fonctionalité 1
 # Appeler la fonction pour obtenir la liste des mots moins importants
 elif valeur == 1 :
-    mots_pas_importants, scores_mini_tfidf = mots_moins_importants(matrice_tfidf, mots_uniques)
+    mots_pas_importants = mots_pas_importants(matrice_tfidf, repertoire_corpus)
 
     # Afficher les résultats
-    mots_pas_importants = mots_moins_importants(matrice_tfidf_transposee, mots_uniques)
+
     print("Mots ayant le score TF-IDF le moins élevé :", mots_pas_importants)
     print(len(mots_pas_importants))
 
@@ -143,7 +143,6 @@ elif valeur == 4:
 # président qui ont parlé au moins une foie de climat ou d'écologie
 elif valeur == 5:
     président_qui_ont_parlé_climat_ou_ecologie(repertoire_corpus, file_names_cleaned)
-
 
 
 
