@@ -13,7 +13,6 @@ def mots_moins_importants(matrice_tfidf, repertoire_corpus): #fonction qui prend
     for i, mot_tfidf in enumerate(matrice_tfidf):   #parcourir chaque colonne de la matrice
         mini_tfidf = min(mot_tfidf)      #trouver le score TF-IDF mminimal et le mot correspondant
         mot_mini_tfidf = mots_unique()[mot_tfidf.index(mini_tfidf)]
-
         mots_pas_importants.append((mot_mini_tfidf))    #ajouter le mot et le score minimal aux listes correspondantes
         scores_mini_tfidf.append(mini_tfidf)
 
@@ -37,9 +36,7 @@ def mots_plus_importants_tfidf(matrice_tfidf, mots_uniques):    #même principe 
 def mots_plus_repetes_par_chirac(repertoire_corpus, file_names_cleaned): #prend en paramètres le répertoire et la liste des fichiers
 
     tf_dict = dico_TF(repertoire_corpus, file_names_cleaned)
-
     fichiers_chirac = ["Nomination_Chirac1_cleaned.txt", "Nomination_Chirac2_cleaned.txt"]
-
     mots_plus_repetes_par_fichier = []
 
     for fichier_chirac in fichiers_chirac:    #parcourir les fichiers de Chirac
@@ -47,7 +44,6 @@ def mots_plus_repetes_par_chirac(repertoire_corpus, file_names_cleaned): #prend 
             occurrences_chirac = tf_dict[fichier_chirac]
 
             mots_plus_repetes = [mot for mot, occ in occurrences_chirac.items() if occ == max(occurrences_chirac.values())]#trouver le(s) mot(s) le(s) plus répété(s)
-
             mots_plus_repetes_par_fichier.append((fichier_chirac, mots_plus_repetes))
         else:
             print("Le fichier de Jacques Chirac", "(fichier_chirac)", "n'a pas été trouvé dans le corpus.")
@@ -66,7 +62,6 @@ def president_avec_plus_parle_de_nation(repertoire_corpus, file_names_cleaned):#
                                                                                # nom du président qui a le plus parlé de
                                                                                # la nation
     tf_dict = dico_TF(repertoire_corpus, file_names_cleaned)
-
     presidents = {
         "Chirac": ["Nomination_Chirac1_cleaned.txt", "Nomination_Chirac2_cleaned.txt"],
         "Giscard d'Estaing": ["Nomination_Giscard dEstaing_cleaned.txt"],
@@ -103,17 +98,14 @@ def president_plus_tot_a_parler_climat_ecologie(matrice_tfidf, mots_uniques, fil
 
     for j, file_name in enumerate(file_names_cleaned):
         for i, mot in enumerate(mots_uniques):
-
             if i < len(matrice_tfidf) and j < len(matrice_tfidf[i]):#verifie si les indices sont dans les limites de la matrice
                 mot_tfidf = matrice_tfidf[i][j]     #extraire le mot et sa valeur TF-IDF de la matrice
-
                 if any(keyword in mot.lower() for keyword in ["climat", "écologie"]):   #verifie si le mot concerne le climat ou l'écologie
                     if file_name not in premier_parler:    #verifie si le président est déjà dans le dictionnaire
                         premier_parler[file_name] = {"mot": mot, "valeur_tfidf": float(mot_tfidf[1])}
 
     if premier_parler:  #verifie si des présidents ont été trouvés
         premier_president = min(premier_parler, key=lambda x: premier_parler[x]["valeur_tfidf"])
-
         #
         print("Le président qui a parlé en premier du climat ou de l'écologie est", premier_president," avec le mot", premier_parler[premier_president]['mot'], " et une valeur TF-IDF de", premier_parler[premier_president]['valeur_tfidf'])
         return premier_president
