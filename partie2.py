@@ -51,8 +51,8 @@ def vecteur_tfidf(question, repertoire): #prend une question et un repertoire po
     return TF_IDF_Matrice2
 
 
-#PRODUIT SCALAIRE
 
+# vecteur corpus texte
 def vecteur_tfidf_texte(chemin_fichier, matrice_tfidf, mots_uniques): #prend le repertoire, la matrice et les mots
                                                                     # unique pour renvoyer le vecteur TF-IDF d'un texte
     with open(chemin_fichier, 'r', encoding='utf-8') as fichier:
@@ -69,7 +69,7 @@ def vecteur_tfidf_texte(chemin_fichier, matrice_tfidf, mots_uniques): #prend le 
 
     return vecteur_tfidf
 
-
+# produit scalaire
 def prod_scalaire(vecteur_question, matrice):   #prend en paramètres le vecteur de la question et d'un texte
                                                 # et en renvoie le produit scalaire
     resultat = 0
@@ -96,7 +96,6 @@ def norme_vecteur_texte():  #calcule la longueur (norme euclidienne) du vecteur 
 
 def calcul_similarite(norme_vecteur_question, norme_vecteur_corpus, produit_scalaire):
     #prend la norme des vecteurs question et corpus ainsi que leur produit scalaire pour en renvoyer l'angle de similarité
-
     similarite = produit_scalaire / norme_vecteur_question * norme_vecteur_corpus
     return similarite
 

@@ -108,12 +108,14 @@ if valeur < 1:
 #fonctionalité 1
 # Appeler la fonction pour obtenir la liste des mots moins importants
 elif valeur == 1 :
-    mots_pas_importants = mots_pas_importants(matrice_tfidf, repertoire_corpus)
+    '''mots_pas_importants = mots_pas_importants(matrice_tfidf, repertoire_corpus)
 
     # Afficher les résultats
 
     print("Mots ayant le score TF-IDF le moins élevé :", mots_pas_importants)
-    print(len(mots_pas_importants))
+    print(len(mots_pas_importants))'''
+    mot_pas_important2 = mot_pas_important2(matrice_tfidf)
+    print("Mots ayant le score TF-IDF le moins élevé :", mot_pas_important2)
 
 
 #fonctionalité 2
@@ -153,24 +155,23 @@ elif valeur == 5:
 question1 = str(input("Posez une question :"))
 #print(tokenisation(question1))
 #print(calcul_tf(question1))
-matrice1= matrice_tfidf_transposee
+#matrice1= matrice_tfidf_transposee
 
 #MOTS COMMUNS QUESTION/CORPUS
 
 mots_en_commun = commun_question_corpus(question1)
 print(mots_en_commun)
 
-print(mots_uniques)
-
-''''#VECTEUR TF-IDF
+#VECTEUR TF-IDF
 vecteur_question1 = vecteur_tfidf(question1, 'cleaned')
 print(vecteur_question1)
 
-#PRODUIT SCALAIRE
+'''#PRODUIT SCALAIRE
 
 matrice1= matrice_tfidf_transposee
 produit_scalaire = prod_scalaire(vecteur_question1, matrice1)
 print(produit_scalaire)
+
 
 #Norme du vecteur question
 

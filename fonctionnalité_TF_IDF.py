@@ -7,13 +7,21 @@ from fonctions_de_base import *
 
 #fonctionnalité TFIDF
 
-def mots_pas_importants(matrice_tfidf, repertoire_corpus):
+def mots_pas_importants(matrice_tfidf):
     mots_non_importants = []
     for i, mot_tfidf in enumerate(matrice_tfidf):
         if mot_tfidf == 0.0:
             mots_non_importants.append(mot_tfidf)
 
     return mots_non_importants
+
+def mot_pas_important2(matrice_tfidf):
+    mots_pas_importants2 = []
+    for i, mot_tfidf in enumerate(matrice_tfidf):    #parcourir chaque ligne de la matrice (correspondant à un fichier)
+        for valeur in mot_tfidf:            #afficher les valeurs TF-IDF pour chaque mot
+            if valeur == 0.0:
+                mots_pas_importants2.append(mot_tfidf)
+    return mots_pas_importants2
 
 
 
@@ -110,3 +118,5 @@ def président_qui_ont_parlé_climat_ou_ecologie(repertoire_corpus, file_names_c
             presidents_ecologie.append(president)
 
     print("Les présidents qui ont mentionné le mot climat ou écologie sont :", presidents_ecologie)
+
+
