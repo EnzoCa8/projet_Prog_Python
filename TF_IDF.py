@@ -1,6 +1,5 @@
 import os
 import math
-from fonctionnalité_TF_IDF import *
 from fonctions_de_base import *
 
 

@@ -1,4 +1,3 @@
-from fonctions_de_base import *
 from TF_IDF import *
 
 '''Sont ici, les fonctionnalités se servant d'utiliser la matrice TF-IDF précédemment réalisée'''
