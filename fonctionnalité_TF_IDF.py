@@ -54,8 +54,8 @@ def mots_plus_repetes_par_chirac(repertoire_corpus, file_names_cleaned): #prend 
         else:
             print("Le fichier de Jacques Chirac", "(fichier_chirac)", "n'a pas été trouvé dans le corpus.")
 
-        for fichier, mots_plus_repetes in mots_plus_repetes_par_fichier:
-            print("Le(s) mot(s) le(s) plus répété(s) par le président Chirac dans le fichier", fichier, ":", mots_plus_repetes)
+    for fichier, mots_plus_repetes in mots_plus_repetes_par_fichier:
+        print("Le(s) mot(s) le(s) plus répété(s) par le président Chirac dans le fichier", fichier, ":", mots_plus_repetes)
 
 
 

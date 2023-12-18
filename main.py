@@ -91,19 +91,21 @@ matrice_tfidf, mots_uniques = calculer_tf_idf_matrix(repertoire_corpus, file_nam
 #fonctionnalités matrice TFIDF
 
 valeur = int(input("Quelles fonctionnalité voulez vous utilisez ?\n"
-                       " Taper 1 pour la liste des mots les moins importants,\n"
+                       " 1 pour la liste des mots les moins importants,\n"
                        " 2 pour les mots ayant le score TD-IDF le plus élevé,\n"
                        " 3 pour le mot le plus répété par Chirac dans ses discours,\n"
                        " 4 pour savoir quel président a le plus parlé de la nation,\n"
-                       " 5 pour savoir quel président a parlé de l'écologie ou du climat\n"))
+                       " 5 pour savoir quel président a parlé de l'écologie ou du climat\n"
+                       " 6 pour le chat bot"))
 matrice_tfidf, mots_uniques = calculer_tf_idf_matrix(repertoire_corpus, file_names_cleaned)
 if valeur < 1:
     valeur = int(input("Quelles fonctionnalité voulez vous utilisez ?\n"
-                       " Taper 1 pour la liste des mots les moins importants,\n"
+                       " 1 pour la liste des mots les moins importants,\n"
                        " 2 pour les mots ayant le score TD-IDF le plus élevé,\n"
                        " 3 pour le mot le plus répété par Chirac dans ses discours,\n"
                        " 4 pour savoir quel président a le plus parlé de la nation,\n"
-                       " 5 pour savoir quel président a parlé de l'écologie ou du climat\n"))
+                       " 5 pour savoir quel président a parlé de l'écologie ou du climat\n"
+                       " 6 pour le chat bot"))
 
 #fonctionalité 1
 # Appeler la fonction pour obtenir la liste des mots moins importants
@@ -146,37 +148,37 @@ elif valeur == 4:
 elif valeur == 5:
     président_qui_ont_parlé_climat_ou_ecologie(repertoire_corpus, file_names_cleaned)
 
-
+elif valeur == 6:
 
 
 #fonctionnalité PARTIE 2
 
 #TOKENISATION
-question1 = "Le climat est-il important"
-print(question1)
+    question1 = "Le climat est-il important"
+    print(question1)
 #print(tokenisation(question1))
 #print(calcul_tf(question1))
 #matrice1= matrice_tfidf_transposee
 
 #MOTS COMMUNS QUESTION/CORPUS
 
-mots_en_commun = commun_question_corpus(question1)
-print(mots_en_commun)
+    mots_en_commun = commun_question_corpus(question1)
+    print(mots_en_commun)
 
 #VECTEUR TF-IDF
-vecteur_question1 = vecteur_tfidf(question1, 'cleaned')
-print(vecteur_question1)
+    vecteur_question1 = vecteur_tfidf(question1, 'cleaned')
+    print(vecteur_question1)
 
 
-vecteur_corpus = vecteur_tfidf_texte('cleaned',matrice_tfidf,mots_uniques, file_names_cleaned[0])
-print(vecteur_corpus)
-print(len(vecteur_corpus))
+    vecteur_corpus = vecteur_tfidf_texte('cleaned',matrice_tfidf,mots_uniques, file_names_cleaned[0])
+    print(vecteur_corpus)
+    print(len(vecteur_corpus))
 
 #PRODUIT SCALAIRE
 
 
-produit_scalaire = produit_vectoriel(vecteur_question1,vecteur_corpus)
-print(produit_scalaire)
+    produit_scalaire = produit_vectoriel(vecteur_question1,vecteur_corpus)
+    print(produit_scalaire)
 
 '''matrice1= matrice_tfidf_transposee
 produit_scalaire = prod_scalaire(vecteur_question1, matrice1)

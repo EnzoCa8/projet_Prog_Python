@@ -89,9 +89,6 @@ def produit_vectoriel(vecteur_question1, vecteurs_corpus):
     return resultat
 
 
-
-
-
 '''def prod_scalaire(vecteur_question, matrice,vecteur_tfidf_texte):   #prend en paramètres le vecteur de la question et d'un texte
                                                 # et en renvoie le produit scalaire
     resultat = 0
