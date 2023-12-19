@@ -9,7 +9,7 @@ from fonctions_de_base import *
 
 def mots_pas_importants(matrice_tfidf):
     mots_non_importants = []
-    for i, mot_tfidf in enumerate(matrice_tfidf):
+    for mot_tfidf in enumerate(matrice_tfidf):
         if mot_tfidf == 0.0:
             mots_non_importants.append(mot_tfidf)
 
