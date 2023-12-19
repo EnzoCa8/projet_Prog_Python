@@ -110,14 +110,8 @@ if valeur < 1:
 #fonctionalité 1
 # Appeler la fonction pour obtenir la liste des mots moins importants
 elif valeur == 1 :
-    '''mots_pas_importants = mots_pas_importants(matrice_tfidf, repertoire_corpus)
-
-    # Afficher les résultats
-
-    print("Mots ayant le score TF-IDF le moins élevé :", mots_pas_importants)
-    print(len(mots_pas_importants))'''
-    mot_pas_important2 = mot_pas_important2(matrice_tfidf)
-    print("Mots ayant le score TF-IDF le moins élevé :", mot_pas_important2)
+    mot_pas_important = mot_pas_important(matrice_tfidf)
+    print("Mots ayant le score TF-IDF le moins élevé :", mot_pas_important)
 
 
 #fonctionalité 2
