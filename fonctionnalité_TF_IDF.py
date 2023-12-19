@@ -7,10 +7,10 @@ from fonctions_de_base import *
 
 #fonctionnalité TFIDF
 
-def mots_pas_importants(matrice_tfidf):
+def mots_pas_importants(matrice_tfidf,score_tf_idf):
     mots_non_importants = []
     for mot_tfidf in enumerate(matrice_tfidf):
-        if mot_tfidf == 0.0:
+        if score_tf_idf == 0.0:
             mots_non_importants.append(mot_tfidf)
 
     return mots_non_importants
