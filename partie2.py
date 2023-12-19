@@ -53,8 +53,8 @@ def vecteur_tfidf(question, repertoire): #prend une question et un repertoire po
 
 
 # vecteur corpus texte
-def vecteur_tfidf_texte(chemin_fichier, matrice_tfidf, mots_uniques, files_name):
-    chemin_fichier = os.path.join('cleaned', files_name)
+def vecteur_tfidf_texte(chemin_fichier, matrice_tfidf, mots_uniques, file_names_cleaned):
+    chemin_fichier = os.path.join('cleaned', file_names_cleaned)
 
     with open(chemin_fichier, 'r', encoding='utf-8') as fichier:
         contenu = fichier.read()
@@ -88,15 +88,6 @@ def produit_vectoriel(vecteur_question1, vecteurs_corpus):
 
     return resultat
 
-
-'''def prod_scalaire(vecteur_question, matrice,vecteur_tfidf_texte):   #prend en paramètres le vecteur de la question et d'un texte
-                                                # et en renvoie le produit scalaire
-    resultat = 0
-    for tfidf_question, tfidf_matrice in zip(vecteur_question, matrice):
-        resultat += float(tfidf_matrice[i]) * float(tfidf_question[i])
-
-    return resultat
-
 ## Norme vecteur question
 def norme_vecteur_question(vecteur_question1): #calcule la longueur (norme euclidienne) du vecteur question
 
@@ -107,7 +98,7 @@ def norme_vecteur_question(vecteur_question1): #calcule la longueur (norme eucli
 
 ## Norme vecteur corpus
 
-def norme_vecteur_texte():  #calcule la longueur (norme euclidienne) du vecteur corpus.
+def norme_vecteur_texte(vecteur_texte, mots_uniques):  #calcule la longueur (norme euclidienne) du vecteur corpus.
 
     somme_carres = sum(componente**2 for componente in vecteur_tfidf_texte('cleaned', vecteur_texte, mots_uniques))
     longueur = math.sqrt(somme_carres)
@@ -116,4 +107,62 @@ def norme_vecteur_texte():  #calcule la longueur (norme euclidienne) du vecteur 
 def calcul_similarite(norme_vecteur_question, norme_vecteur_corpus, produit_scalaire):
     #prend la norme des vecteurs question et corpus ainsi que leur produit scalaire pour en renvoyer l'angle de similarité
     similarite = produit_scalaire / norme_vecteur_question * norme_vecteur_corpus
-    return similarite'''
+    return similarite
+
+def document_le_plus_pertinent(norme_vecteur_corpus, produit_scalaire, similarity):
+    similarity_max = 0
+    texte_pertinent = 0
+    for file_names_cleaned in os.listdir('cleaned'):
+        similarity_texte_question = calcul_similarite(norme_vecteur_question, norme_vecteur_corpus, produit_scalaire)
+        if similarity_texte_question > similarity_max:
+            similarity_max = similarity_texte_question
+            texte_pertinent = file_names_cleaned
+
+    return texte_pertinent
+
+def mot_important_question(question1,repertoire):
+    TF_mots_Question = calcul_tf(question1)
+    IDF_corpus = calculer_idf(repertoire)
+    scoreTFIDF_important_question = 0
+    mot_important_question = []
+
+
+
+    for mot, idf_score in IDF_corpus.items():
+        if mot in TF_mots_Question:
+            score_tf = TF_mots_Question.get(mot, 1)
+        else:
+            score_tf = 0
+
+        score_TF_IDF = idf_score * score_tf
+        if score_TF_IDF > scoreTFIDF_important_question:
+            scoreTFIDF_important_question = score_TF_IDF
+            mot_important_question.append(mot)
+
+    return mot_important_question
+
+def reponse(document_le_plus_pertinent, mot_important_question):
+    cpt = 0
+    for mot_important_question in document_le_plus_pertinent:
+        chemin_fichier = os.path.join('cleaned', document_le_plus_pertinent)
+
+        with open(chemin_fichier, 'r', encoding='utf-8') as fichier:
+            texte = document_le_plus_pertinent.read()
+
+
+            # Chercher la première occurrence du mot clé
+            index_mot_cle = texte.find(mot_important_question)
+            phrases = texte.split(".")
+            for phrase in phrases:
+                if mot_important_question in phrase:
+                     # Imprimer la phrase suivant le mot clé
+                    reponse = phrase.strip()
+                    break
+    return reponse
+
+
+
+
+
+
+

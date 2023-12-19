@@ -154,8 +154,8 @@ elif valeur == 6:
 #fonctionnalité PARTIE 2
 
 #TOKENISATION
-    question1 = "Le climat est-il important"
-    print(question1)
+    question1 = str(input("Saisir une question : "))
+
 #print(tokenisation(question1))
 #print(calcul_tf(question1))
 #matrice1= matrice_tfidf_transposee
@@ -163,36 +163,43 @@ elif valeur == 6:
 #MOTS COMMUNS QUESTION/CORPUS
 
     mots_en_commun = commun_question_corpus(question1)
-    print(mots_en_commun)
+
 
 #VECTEUR TF-IDF
     vecteur_question1 = vecteur_tfidf(question1, 'cleaned')
-    print(vecteur_question1)
+
 
 
     vecteur_corpus = vecteur_tfidf_texte('cleaned',matrice_tfidf,mots_uniques, file_names_cleaned[0])
-    print(vecteur_corpus)
-    print(len(vecteur_corpus))
 
-#PRODUIT SCALAIRE
-
-
-    produit_scalaire = produit_vectoriel(vecteur_question1,vecteur_corpus)
-    print(produit_scalaire)
-
-'''matrice1= matrice_tfidf_transposee
-produit_scalaire = prod_scalaire(vecteur_question1, matrice1)
-print(produit_scalaire)
+#produit scalaire
+    produit_scalaire = produit_vectoriel(vecteur_question1, vecteur_corpus)
 
 
 #Norme du vecteur question
 
-norme_vecteur_question = norme_vecteur_question(question1)
-print(f"La longueur du vecteur {vecteur_question1} est : {norme_vecteur_question}")
+    norme_vecteur_question = norme_vecteur_question(question1)
+
 
 # Norme du vecteur corpus
-norme_vecteur_corpus = norme_vecteur_corpus(vecteur)
-print(f"La longueur du vecteur {vecteur_question1} est : {norme_vecteur_corpus}")
+    norme_vecteur_corpus = norme_vecteur_texte(vecteur_corpus, mots_uniques)
+
 
 # Calule similarity
-similary = calcul_similarity()'''
+    similarity = calcul_similarite(norme_vecteur_question, norme_vecteur_corpus, produit_scalaire)
+
+#document le plus pertinent:
+    document_le_plus_pertinent = document_le_plus_pertinent(norme_vecteur_corpus,produit_scalaire,similarity)
+
+
+# mot important dans la question
+    mot_important_question = mot_important_question(question1,'cleaned')
+
+# reponse
+    reponse = reponse(document_le_plus_pertinent, mot_important_question)
+    print(reponse)
+
+
+
+
+
