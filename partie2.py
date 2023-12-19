@@ -105,7 +105,7 @@ def norme_vecteur_texte(vecteur_texte, mots_uniques):  #calcule la longueur (nor
     return longueur
 
 def calcul_similarite(norme_vecteur_question, norme_vecteur_corpus, produit_scalaire):
-    #prend la norme des vecteurs question et corpus ainsi que leur produit scalaire pour en renvoyer l'angle de similarité
+    # prend la norme des vecteurs question et corpus ainsi que leur produit scalaire pour en renvoyer l'angle de similarité
     similarite = produit_scalaire / norme_vecteur_question * norme_vecteur_corpus
     return similarite
 
